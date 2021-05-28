@@ -1,0 +1,17 @@
+android {
+    buildTypes {
+        release {
+            minifyEnabled BuildTypeRelease.isMinifyEnabled
+            proguardFiles getDefaultProguardFile("proguard-android.txt")
+            proguardFiles project.file("proguard-rules.pro")
+            buildConfigField "String", "VERSION_NAME", "\"{$ProjectConfigurations.versionName}\""
+        }
+        debug {
+            buildConfigField "String", "VERSION_NAME", "\"{$ProjectConfigurations.versionName}\""
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
