@@ -184,7 +184,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         })
 
-        binding.loginLayout.etPhoneInput.addTextChangedListener(object : TextWatcher {
+        binding.loginLayout.etCenterInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence?,
                 start: Int,
@@ -200,7 +200,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 binding.loginLayout.apply {
                     email = etEmailInput.text.toString().trim()
                     password = etPasswordInput.text.toString().trim()
-                    phone = etPhoneInput.text.toString().trim()
+                    phone = etCenterInput.text.toString().trim()
                     if (phone.isNotEmpty() && checkPhoneValidation(phone) && password.isNotEmpty() && email.isNotEmpty()) {
                         makeBtnEnable(btnJoin)
                     } else {
@@ -221,7 +221,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 binding.loginLayout.apply {
                     email = etEmailInput.text.toString().trim()
                     password = etPasswordInput.text.toString().trim()
-                    phone = etPhoneInput.text.toString().trim()
+                    phone = etCenterInput.text.toString().trim()
                     if (password.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty()) {
                         makeBtnEnable(btnJoin)
                     } else {
@@ -249,8 +249,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 clearFocus()
             }
             etPasswordInput.makeVisible()
-            ivPhone.makeVisible()
-            etPhoneInput.makeVisible()
+            ivCenter.makeVisible()
+            etCenterInput.makeVisible()
             btnNext.makeGone()
             btnFindAccount.makeGone()
             tvRule.makeVisible()
@@ -318,8 +318,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 makeGone()
             }
             ivPassword.makeGone()
-            ivPhone.makeGone()
-            etPhoneInput.apply {
+            ivCenter.makeGone()
+            etCenterInput.apply {
                 text = null
                 makeGone()
             }

@@ -28,10 +28,10 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(binding.root)
-//        moveToLoginScreen()
+        moveToLoginScreen()
         checkApi()
 
-        moveToMainScreen()
+//        moveToMainScreen()
     }
 
     private fun moveToLoginScreen() {

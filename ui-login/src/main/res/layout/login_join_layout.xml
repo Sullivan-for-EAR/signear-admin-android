@@ -55,23 +55,23 @@
         app:layout_constraintTop_toBottomOf="@+id/et_email_input" />
 
     <ImageView
-        android:id="@+id/iv_phone"
+        android:id="@+id/iv_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:background="@drawable/phone_icon"
+        android:background="@drawable/center_icon"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_password" />
 
     <EditText
-        android:id="@+id/et_phone_input"
+        android:id="@+id/et_center_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
-        android:hint="전화번호를 입력하세요"
+        android:hint="소속 지역을 입력하세요"
         android:inputType="phone"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_find_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone_input" />
+        app:layout_constraintTop_toBottomOf="@+id/et_center_input" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_find_account"
@@ -123,7 +123,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_join"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone_input" />
+        app:layout_constraintTop_toBottomOf="@+id/et_center_input" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_join"
