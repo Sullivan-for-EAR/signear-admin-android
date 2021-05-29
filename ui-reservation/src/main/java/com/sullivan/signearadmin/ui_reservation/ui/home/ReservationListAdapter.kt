@@ -12,7 +12,6 @@ import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemReservationBinding
-import com.sullivan.signear.ui_reservation.ui.home.HomeFragmentDirections
 import com.sullivan.signearadmin.ui_reservation.model.Reservation
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 

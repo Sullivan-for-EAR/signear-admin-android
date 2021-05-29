@@ -16,7 +16,6 @@ import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.FragmentDialogReservationDeleteBinding
-import com.sullivan.signear.ui_reservation.ui.mypage.ReservationDeleteFragmentDialogDirections
 import com.sullivan.signearadmin.ui_reservation.model.Reservation
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel

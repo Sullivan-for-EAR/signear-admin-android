@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.sullivan.signear.ui_reservation.ui.home.HomeFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment">
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/reservationFragment"
-        android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationFragment"
         android:label="reservation_fragment"
         tools:layout="@layout/reservation_fragment">
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/reservationInfoFragment"
-        android:name="com.sullivan.signear.ui_reservation.ui.reservation.ReservationInfoFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoFragment"
         android:label="fragment_reservation_info"
         tools:layout="@layout/fragment_reservation_info">
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/emergencyReservationFragment"
-        android:name="com.sullivan.signear.ui_reservation.ui.reservation.EmergencyReservationFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.EmergencyReservationFragment"
         android:label="fragment_emergency_reservation"
         tools:layout="@layout/fragment_emergency_reservation">
         <action
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"
-        android:name="com.sullivan.signear.ui_reservation.ui.mypage.MyPageFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.mypage.MyPageFragment"
         android:label="fragment_my_page"
         tools:layout="@layout/fragment_my_page">
         <action
@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/previousReservationFragment"
-        android:name="com.sullivan.signear.ui_reservation.ui.mypage.PreviousReservationFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.mypage.PreviousReservationFragment"
         android:label="fragment_previous_reservation"
         tools:layout="@layout/fragment_previous_reservation">
 
@@ -139,7 +139,7 @@
     </fragment>
     <dialog
         android:id="@+id/reservationDeleteFragmentDialog"
-        android:name="com.sullivan.signear.ui_reservation.ui.mypage.ReservationDeleteFragmentDialog"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.mypage.ReservationDeleteFragmentDialog"
         android:label="ReservationDeleteFragmentDialog">
 
         <action
