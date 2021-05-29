@@ -18,6 +18,13 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -31,8 +38,10 @@ dependencies {
     implementation(Dep.Kotlin.coroutines.android)
     implementation(Dep.AndroidX.legacySupport)
 
+    implementation(Dep.AndroidX.appcompat)
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.fragment.ktx)
+    implementation(Dep.AndroidX.constraintLayout)
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
     implementation(Dep.AndroidX.lifecycle.liveDataKtx)
     implementation(Dep.AndroidX.UI.material)

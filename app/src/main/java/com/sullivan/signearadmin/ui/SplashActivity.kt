@@ -28,10 +28,10 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(binding.root)
-        moveToLoginScreen()
+//        moveToLoginScreen()
         checkApi()
 
-//        moveToMainScreen()
+        moveToMainScreen()
     }
 
     private fun moveToLoginScreen() {
@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
     private fun moveToMainScreen() {
         lifecycleScope.launchWhenCreated {
             delay(1_000)
-            reservationNavigator.openReservationHome(this@SplashActivity)
+            reservationNavigator.openRealTimeReservationHome(this@SplashActivity)
         }
     }
 

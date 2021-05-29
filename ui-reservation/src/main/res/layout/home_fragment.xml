@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sullivan.signear.ui_reservation.ui.home.HomeFragment">
+    tools:context="com.sullivan.signearadmin.ui_reservation.ui.ReservationActivity">
 
     <TextView
         android:id="@+id/tv_title"
@@ -13,7 +13,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:lineSpacingExtra="7sp"
-        android:text="@string/fragment_home_title"
+        android:text="실시간 예약"
         android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"

@@ -30,8 +30,15 @@
 
         <activity
             android:name=".ui_reservation.ui.ReservationActivity"
-            android:theme="@style/ReservationTheme"
             android:screenOrientation="portrait"
+            android:theme="@style/ReservationTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity"
+            android:label="@string/title_activity_real_time_reservation"
+            android:screenOrientation="portrait"
+            android:theme="@style/ReservationTheme"
             android:windowSoftInputMode="adjustResize" />
 
         <provider
