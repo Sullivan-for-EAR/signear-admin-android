@@ -31,5 +31,7 @@ class RealTimeReservationActivity : AppCompatActivity() {
             )
         )
         navView.setupWithNavController(navController)
+        navView.itemIconTintList = null
+
     }
 }
