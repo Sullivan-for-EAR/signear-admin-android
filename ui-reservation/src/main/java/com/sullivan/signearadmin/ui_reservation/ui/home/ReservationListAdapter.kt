@@ -42,7 +42,7 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
 //                    btnNavigation.makeVisible()
 //                }
 
-                "${item.date} ${item.startTime}".also { tvDate.text = it }
+//                "${item.date} ${item.startTime}".also { tvDate.text = it }
 
 //                if (!item.isEmergency) {
 //                    showReservationState(item.currentState, ivState)

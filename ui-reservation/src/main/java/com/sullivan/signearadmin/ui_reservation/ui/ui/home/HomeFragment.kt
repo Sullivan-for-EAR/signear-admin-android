@@ -25,7 +25,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     private val reservationList = listOf(
         Reservation(
             1,
-            "4월 30일(금)",
+            "4월 30일 금요일",
             "오전 10시",
             "오전 12시",
             "강남구",
@@ -38,7 +38,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         ),
         Reservation(
             2,
-            "4월 30일(금)",
+            "4월 30일 금요일",
             "오전 10시",
             "오전 12시",
             "강남구", "서초좋은병원", "",
@@ -47,7 +47,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         ),
         Reservation(
             3,
-            "4월 30일(금)",
+            "4월 30일 금요일",
             "오전 10시",
             "오전 12시",
             "강남구", "서초좋은병원", "",
@@ -56,7 +56,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         ),
         Reservation(
             4,
-            "4월 30일(금)",
+            "4월 30일 금요일",
             "오전 10시",
             "오전 12시",
             "강남구",
@@ -67,7 +67,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         ),
         Reservation(
             5,
-            "4월 30일(금)",
+            "4월 30일 금요일",
             "오전 10시",
             "오전 12시",
             "강남구",
@@ -78,17 +78,17 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         ),
         Reservation(
             6,
-            "4월 30일(금)", "오전 10시",
+            "4월 30일 금요일", "오전 10시",
             "오전 12시", "강남구", "서초좋은병원", ""
         ),
         Reservation(
             7,
-            "4월 30일(금)", "오전 10시",
+            "4월 30일 금요일", "오전 10시",
             "오전 12시", "강남구", "서초좋은병원", ""
         ),
         Reservation(
             8,
-            "4월 30일(금)", "오전 10시",
+            "4월 30일 금요일", "오전 10시",
             "오전 12시", "강남구", "서초좋은병원", ""
         )
     )
