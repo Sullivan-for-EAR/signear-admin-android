@@ -5,11 +5,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityRealTimeReservationBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RealTimeReservationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRealTimeReservationBinding
@@ -32,6 +33,5 @@ class RealTimeReservationActivity : AppCompatActivity() {
         )
         navView.setupWithNavController(navController)
         navView.itemIconTintList = null
-
     }
 }

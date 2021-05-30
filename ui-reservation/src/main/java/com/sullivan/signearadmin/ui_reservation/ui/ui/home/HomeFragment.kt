@@ -4,41 +4,123 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.sullivan.sigenearadmin.ui_reservation.databinding.FragmentHomeBinding
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.sigenearadmin.ui_reservation.R
+import com.sullivan.sigenearadmin.ui_reservation.databinding.HomeFragmentBinding
+import com.sullivan.signearadmin.ui_reservation.model.Reservation
+import com.sullivan.signearadmin.ui_reservation.state.ReservationState
+import com.sullivan.signearadmin.ui_reservation.ui.home.ReservationListAdapter
+import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
-    private lateinit var homeViewModel: HomeViewModel
-    private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val sharedViewModel: ReservationSharedViewModel by activityViewModels()
+    private lateinit var reservationListAdapter: ReservationListAdapter
+    private val reservationList = listOf(
+        Reservation(
+            1,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원",
+            "",
+            false,
+            ReservationState.NotConfirm,
+            "",
+            true
+        ),
+        Reservation(
+            2,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구", "서초좋은병원", "",
+            false,
+            ReservationState.NotConfirm
+        ),
+        Reservation(
+            3,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구", "서초좋은병원", "",
+            false,
+            ReservationState.Reject("reason")
+        ),
+        Reservation(
+            4,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원",
+            "",
+            false,
+            ReservationState.Confirm
+        ),
+        Reservation(
+            5,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원",
+            "",
+            false,
+            ReservationState.Cancel("reason")
+        ),
+        Reservation(
+            6,
+            "4월 30일(금)", "오전 10시",
+            "오전 12시", "강남구", "서초좋은병원", ""
+        ),
+        Reservation(
+            7,
+            "4월 30일(금)", "오전 10시",
+            "오전 12시", "강남구", "서초좋은병원", ""
+        ),
+        Reservation(
+            8,
+            "4월 30일(금)", "오전 10시",
+            "오전 12시", "강남구", "서초좋은병원", ""
+        )
+    )
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+    ): View {
+        binding = HomeFragmentBinding.inflate(layoutInflater)
+        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        binding = null
+//    }
+
+    override fun setupView() {
+        binding.apply {
+            reservationListAdapter =
+                ReservationListAdapter(reservationList)
+            sharedViewModel.updateReservationList(reservationList)
+
+            rvReservation.apply {
+                setHasFixedSize(true)
+                adapter = reservationListAdapter
+//                addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            }
+
+//            btnReservation.setOnClickListener {
+//                findNavController().navigate(R.id.action_homeFragment_to_reservationFragment)
+//            }
+        }
     }
 }

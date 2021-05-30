@@ -17,7 +17,7 @@ import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.Re
 class PreviousReservationListAdapter(
     private val reservationList: MutableList<Reservation>,
     private val sharedViewModel: ReservationSharedViewModel,
-    swipeHelperCallback: SwipeHelperCallback
+//    swipeHelperCallback: SwipeHelperCallback
 ) :
     RecyclerView.Adapter<PreviousReservationListAdapter.ReservationListViewHolder>() {
     private lateinit var bindingItem: ItemReservationBinding
@@ -33,20 +33,20 @@ class PreviousReservationListAdapter(
                 }
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
-                showReservationState(item.currentState, ivState)
-
-                rvReservation.setOnClickListener {
-                    it.findNavController()
-                        .navigate(
-                            PreviousReservationFragmentDirections.actionPreviousReservationFragmentToReservationDeleteFragmentDialog(
-                                item.id
-                            )
-                        )
-                }
-
-                btnDelete.setOnClickListener {
-                    remove(item.id)
-                }
+//                showReservationState(item.currentState, ivState)
+//
+//                rvReservation.setOnClickListener {
+//                    it.findNavController()
+//                        .navigate(
+//                            PreviousReservationFragmentDirections.actionPreviousReservationFragmentToReservationDeleteFragmentDialog(
+//                                item.id
+//                            )
+//                        )
+//                }
+//
+//                btnDelete.setOnClickListener {
+//                    remove(item.id)
+//                }
             }
         }
 
@@ -74,9 +74,9 @@ class PreviousReservationListAdapter(
             }
         }
 
-        fun getBtnDelete(): View = binding.btnDelete
-
-        fun getSwipeView(): View = binding.rvReservation
+//        fun getBtnDelete(): View = binding.btnDelete
+//
+//        fun getSwipeView(): View = binding.rvReservation
     }
 
     override fun onCreateViewHolder(

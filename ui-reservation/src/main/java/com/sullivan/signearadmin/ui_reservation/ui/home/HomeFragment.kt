@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.common.ui_common.base.BaseFragment
-import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.HomeFragmentBinding
 import com.sullivan.signearadmin.ui_reservation.model.Reservation
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
@@ -112,14 +110,6 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 setHasFixedSize(true)
                 adapter = reservationListAdapter
                 addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            }
-
-            btnReservation.setOnClickListener {
-                findNavController().navigate(R.id.action_homeFragment_to_reservationFragment)
-            }
-
-            ivProfile.setOnClickListener {
-                findNavController().navigate(R.id.action_homeFragment_to_myPageFragment)
             }
         }
     }

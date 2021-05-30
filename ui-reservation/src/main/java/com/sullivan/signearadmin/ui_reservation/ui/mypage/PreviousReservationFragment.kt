@@ -19,9 +19,9 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
 
     private val viewModel: ReservationSharedViewModel by activityViewModels()
     private lateinit var reservationListAdapter: PreviousReservationListAdapter
-    private val swipeHelperCallback = SwipeHelperCallback().apply {
-        setClamp(220f)
-    }
+//    private val swipeHelperCallback = SwipeHelperCallback().apply {
+//        setClamp(220f)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +41,7 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
             PreviousReservationListAdapter(
                 viewModel.fetchPrevList(),
                 viewModel,
-                swipeHelperCallback
+//                swipeHelperCallback
             )
         val id = arguments?.getInt(ARGS_KEY)
         if (id != null) {
@@ -49,8 +49,8 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
         }
 
         binding.apply {
-            val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
-            itemTouchHelper.attachToRecyclerView(rvReservation)
+//            val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+//            itemTouchHelper.attachToRecyclerView(rvReservation)
 
             rvReservation.apply {
                 setHasFixedSize(true)

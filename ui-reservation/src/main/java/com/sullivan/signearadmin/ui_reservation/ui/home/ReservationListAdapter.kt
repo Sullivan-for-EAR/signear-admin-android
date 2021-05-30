@@ -23,46 +23,50 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Reservation) {
             binding.apply {
-                if (item.isEmergency) {
-                    tvUrgent.makeVisible()
-                    tvPlace.makeGone()
-                    btnCancel.makeVisible()
-                    btnNavigation.makeGone()
-                } else {
-                    tvPlace.apply {
-                        makeVisible()
-                        text = item.place
-                    }
-                    tvUrgent.makeGone()
-                    btnCancel.makeGone()
-                    btnNavigation.makeVisible()
-                }
+//                if (item.isEmergency) {
+//                    tvUrgent.makeVisible()
+//                    tvPlace.makeGone()
+//                    btnCancel.makeVisible()
+//                    btnNavigation.makeGone()
+//                } else {
+
+                tvDate.text = item.date
+                tvReservationStartTime.text = item.startTime
+                tvReservationEndTime.text = item.endTime
+
+                tvPlace.text = item.place
+
+                tvPurpose.text = item.purpose
+//                    tvUrgent.makeGone()
+//                    btnCancel.makeGone()
+//                    btnNavigation.makeVisible()
+//                }
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
 
-                if (!item.isEmergency) {
-                    showReservationState(item.currentState, ivState)
-                }
-
-                rvReservation.setOnClickListener {
-                    if (!item.isEmergency) {
-                        it.findNavController().navigate(
-                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
-                        )
-                    }
-                }
-
-                btnNavigation.setOnClickListener {
-                    if (!item.isEmergency) {
-                        it.findNavController().navigate(
-                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
-                        )
-                    }
-                }
-
-                btnCancel.setOnClickListener {
-                    showDialog(it.context)
-                }
+//                if (!item.isEmergency) {
+//                    showReservationState(item.currentState, ivState)
+//                }
+//
+//                rvReservation.setOnClickListener {
+//                    if (!item.isEmergency) {
+//                        it.findNavController().navigate(
+//                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
+//                        )
+//                    }
+//                }
+//
+//                btnNavigation.setOnClickListener {
+//                    if (!item.isEmergency) {
+//                        it.findNavController().navigate(
+//                            HomeFragmentDirections.actionHomeFragmentToReservationInfoFragment(item.id)
+//                        )
+//                    }
+//                }
+//
+//                btnCancel.setOnClickListener {
+//                    showDialog(it.context)
+//                }
             }
         }
 
