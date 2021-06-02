@@ -71,7 +71,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:hint="소속 지역을 입력하세요"
-        android:inputType="phone"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:visibility="gone"

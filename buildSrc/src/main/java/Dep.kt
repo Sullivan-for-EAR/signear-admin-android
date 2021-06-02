@@ -175,5 +175,8 @@ object Dep {
 
     object CustomLib {
         const val spinner = "com.jaredrummler:material-spinner:1.3.1"
+        private const val adapterdelegatesVersion = "4.3.0"
+        const val adapterdelegates = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl:$adapterdelegatesVersion"
+        const val adapterdelegatesViewbinding = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$adapterdelegatesVersion"
     }
 }

@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.common.ui_common.base.BaseFragment
-import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.HomeFragmentBinding
-import com.sullivan.signearadmin.ui_reservation.model.Reservation
+import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
+import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
+import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
+import com.sullivan.signearadmin.ui_reservation.ui.home.ReservationDelegateAdapter
 import com.sullivan.signearadmin.ui_reservation.ui.home.ReservationListAdapter
 import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,41 +21,42 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     private val sharedViewModel: ReservationSharedViewModel by activityViewModels()
     private lateinit var reservationListAdapter: ReservationListAdapter
-    private val reservationList = listOf(
-        Reservation(
+    private lateinit var reservationDelegateAdapter: ReservationDelegateAdapter
+    private val reservationList: MutableList<ReservationType> = mutableListOf(
+        EmergencyReservation(
             1,
-            "4월 30일 금요일",
+            "4월 30일(금)",
             "오전 10시",
             "오전 12시",
             "강남구",
-            "서초좋은병원",
+            "중랑좋은병원",
             "",
             false,
             ReservationState.NotConfirm,
             "",
-            true
+//            true
         ),
-        Reservation(
+        NormalReservation(
             2,
-            "4월 30일 금요일",
+            "4월 30일(금)",
             "오전 10시",
             "오전 12시",
             "강남구", "서초좋은병원", "",
             false,
             ReservationState.NotConfirm
         ),
-        Reservation(
+        NormalReservation(
             3,
-            "4월 30일 금요일",
+            "4월 30일(금)",
             "오전 10시",
             "오전 12시",
             "강남구", "서초좋은병원", "",
             false,
             ReservationState.Reject("reason")
         ),
-        Reservation(
+        NormalReservation(
             4,
-            "4월 30일 금요일",
+            "4월 30일(금)",
             "오전 10시",
             "오전 12시",
             "강남구",
@@ -65,9 +65,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             false,
             ReservationState.Confirm
         ),
-        Reservation(
+        NormalReservation(
             5,
-            "4월 30일 금요일",
+            "4월 30일(금)",
             "오전 10시",
             "오전 12시",
             "강남구",
@@ -76,19 +76,19 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             false,
             ReservationState.Cancel("reason")
         ),
-        Reservation(
+        NormalReservation(
             6,
-            "4월 30일 금요일", "오전 10시",
+            "4월 30일(금)", "오전 10시",
             "오전 12시", "강남구", "서초좋은병원", ""
         ),
-        Reservation(
+        NormalReservation(
             7,
-            "4월 30일 금요일", "오전 10시",
+            "4월 30일(금)", "오전 10시",
             "오전 12시", "강남구", "서초좋은병원", ""
         ),
-        Reservation(
+        NormalReservation(
             8,
-            "4월 30일 금요일", "오전 10시",
+            "4월 30일(금)", "오전 10시",
             "오전 12시", "강남구", "서초좋은병원", ""
         )
     )
@@ -108,13 +108,11 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun setupView() {
         binding.apply {
-            reservationListAdapter =
-                ReservationListAdapter(reservationList)
-            sharedViewModel.updateReservationList(reservationList)
+            reservationDelegateAdapter = ReservationDelegateAdapter(reservationList)
 
             rvReservation.apply {
                 setHasFixedSize(true)
-                adapter = reservationListAdapter
+                adapter = reservationDelegateAdapter
 //                addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             }
 

@@ -56,6 +56,8 @@ dependencies {
     implementation(Dep.timber)
 
     implementation(Dep.CustomLib.spinner)
+    implementation(Dep.CustomLib.adapterdelegates)
+    implementation(Dep.CustomLib.adapterdelegatesViewbinding)
 
     coreLibraryDesugaring(Dep.Tool.desugarJdk)
 }
