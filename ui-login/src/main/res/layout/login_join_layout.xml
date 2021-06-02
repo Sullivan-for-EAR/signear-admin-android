@@ -70,7 +70,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
         android:hint="소속 지역을 입력하세요"
         android:inputType="phone"
         android:textColor="@color/black"
