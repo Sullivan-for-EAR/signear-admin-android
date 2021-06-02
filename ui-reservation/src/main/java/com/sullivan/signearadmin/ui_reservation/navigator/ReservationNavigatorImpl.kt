@@ -1,6 +1,6 @@
 package com.sullivan.signearadmin.ui_reservation.navigator
 
-import android.content.Context
+import android.app.Activity
 import com.sullivan.common.ui_common.ex.launchActivity
 import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity
@@ -8,11 +8,11 @@ import com.sullivan.signearadmin.ui_reservation.ui.ReservationActivity
 import javax.inject.Inject
 
 class ReservationNavigatorImpl @Inject constructor() : ReservationNavigator {
-    override fun openReservationHome(context: Context) {
-        context.launchActivity<ReservationActivity>()
+    override fun openReservationHome(activity: Activity) {
+        activity.launchActivity<ReservationActivity>()
     }
 
-    override fun openRealTimeReservationHome(context: Context) {
-        context.launchActivity<RealTimeReservationActivity>()
+    override fun openRealTimeReservationHome(activity: Activity) {
+        activity.launchActivity<RealTimeReservationActivity>()
     }
 }

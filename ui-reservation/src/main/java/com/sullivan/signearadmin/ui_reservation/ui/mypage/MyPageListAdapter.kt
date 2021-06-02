@@ -1,5 +1,6 @@
 package com.sullivan.signearadmin.ui_reservation.ui.mypage
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -16,7 +17,8 @@ import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemMypageBinding
 
 class MyPageListAdapter(
     private val itemList: List<MyPageItem>,
-    private val loginNavigator: LoginNavigator
+    private val loginNavigator: LoginNavigator,
+    private val activity: Activity
 ) :
     RecyclerView.Adapter<MyPageListAdapter.MyPageListViewHolder>() {
 
@@ -63,7 +65,7 @@ class MyPageListAdapter(
                 .setTitle(R.string.fragment_my_page_dialog_logout_title)
                 .setMessage(R.string.fragment_my_page_dialog_logout_body)
                 .setPositiveButton(R.string.fragment_my_page_dialog_logout_positive_btn_title) { dialog, _ ->
-                    loginNavigator.openLogin(context)
+                    loginNavigator.openLogin(activity)
                     dialog.dismiss()
                 }
                 .setNegativeButton(R.string.fragment_my_page_dialog_logout_negative_btn_title) { dialog, _ ->
