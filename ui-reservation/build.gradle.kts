@@ -39,11 +39,13 @@ dependencies {
     implementation(Dep.AndroidX.legacySupport)
 
     implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.coreKtx)
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.fragment.ktx)
     implementation(Dep.AndroidX.constraintLayout)
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
     implementation(Dep.AndroidX.lifecycle.liveDataKtx)
+    implementation(Dep.AndroidX.lifecycle.commonJava8)
     implementation(Dep.AndroidX.UI.material)
     implementation(Dep.AndroidX.UI.recyclerview)
 

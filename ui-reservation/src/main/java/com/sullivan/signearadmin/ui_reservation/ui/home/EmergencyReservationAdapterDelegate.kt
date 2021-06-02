@@ -8,7 +8,8 @@ import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemEmergencyReserv
 import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 
-class EmergencyReservationAdapterDelegate : AdapterDelegate<List<ReservationType>>() {
+class EmergencyReservationAdapterDelegate(private val requestPermission: () -> Unit) :
+    AdapterDelegate<List<ReservationType>>() {
 
     private lateinit var bindingItem: ItemEmergencyReservationBinding
 
@@ -36,7 +37,9 @@ class EmergencyReservationAdapterDelegate : AdapterDelegate<List<ReservationType
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: EmergencyReservation) {
             binding.apply {
-
+                btnConfirm.setOnClickListener {
+                    requestPermission()
+                }
             }
         }
     }

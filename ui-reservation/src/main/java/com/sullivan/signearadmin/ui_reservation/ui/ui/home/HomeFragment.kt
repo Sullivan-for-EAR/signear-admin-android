@@ -11,8 +11,8 @@ import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
+import com.sullivan.signearadmin.ui_reservation.ui.home.MyLifecycleObserver
 import com.sullivan.signearadmin.ui_reservation.ui.home.ReservationDelegateAdapter
-import com.sullivan.signearadmin.ui_reservation.ui.home.ReservationListAdapter
 import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     private val sharedViewModel: ReservationSharedViewModel by activityViewModels()
-    private lateinit var reservationListAdapter: ReservationListAdapter
+    private lateinit var observer: MyLifecycleObserver
+
     private lateinit var reservationDelegateAdapter: ReservationDelegateAdapter
     private val reservationList: MutableList<ReservationType> = mutableListOf(
         EmergencyReservation(
@@ -33,8 +34,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             "",
             false,
             ReservationState.NotConfirm,
-            "",
-//            true
+            ""
         ),
         NormalReservation(
             2,
@@ -52,7 +52,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             "오전 12시",
             "강남구", "서초좋은병원", "",
             false,
-            ReservationState.Reject("reason")
+            ReservationState.Reject("reason"),
+            NormalReservation.User()
         ),
         NormalReservation(
             4,
@@ -93,6 +94,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         )
     )
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        observer = MyLifecycleObserver(requireActivity())
+        lifecycle.addObserver(observer)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -108,17 +116,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun setupView() {
         binding.apply {
-            reservationDelegateAdapter = ReservationDelegateAdapter(reservationList)
+            reservationDelegateAdapter =
+                ReservationDelegateAdapter(reservationList) { observer.requestPermission() }
 
             rvReservation.apply {
                 setHasFixedSize(true)
                 adapter = reservationDelegateAdapter
-//                addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             }
-
-//            btnReservation.setOnClickListener {
-//                findNavController().navigate(R.id.action_homeFragment_to_reservationFragment)
-//            }
         }
     }
 }

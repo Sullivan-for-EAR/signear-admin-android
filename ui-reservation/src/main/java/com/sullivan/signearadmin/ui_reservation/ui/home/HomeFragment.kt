@@ -12,7 +12,6 @@ import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.sigenearadmin.ui_reservation.databinding.HomeFragmentBinding
 import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
-import com.sullivan.signearadmin.ui_reservation.model.Reservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
@@ -109,7 +108,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 //            reservationListAdapter = ReservationListAdapter(reservationList)
 //            sharedViewModel.updateReservationList(reservationList)
 
-            reservationDelegateAdapter = ReservationDelegateAdapter(reservationList)
+//            reservationDelegateAdapter = ReservationDelegateAdapter(
+//                reservationList,
+//                this@HomeFragment::requestPermission
+//            )
 
             rvReservation.apply {
                 setHasFixedSize(true)
