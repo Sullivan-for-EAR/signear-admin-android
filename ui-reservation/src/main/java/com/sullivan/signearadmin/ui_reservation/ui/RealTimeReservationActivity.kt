@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.sullivan.common.ui_common.ex.makeToast
+import com.sullivan.common.ui_common.ex.setupDialogWithAction
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityRealTimeReservationBinding
 import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
@@ -33,7 +34,7 @@ class RealTimeReservationActivity : AppCompatActivity() {
     ) { isGranted ->
         if (isGranted) {
             //todo 실제 전화기에 영상통화여부 확인 필요
-            makeVideoCall()
+            setupDialogWithAction("안내", "연결", "취소", this::makeVideoCall, "영상통화 연결을 할까요?")
         } else {
             makeToast("영상통화 연결을 위해서 전화 연결 권한이 필요합니다!")
         }
