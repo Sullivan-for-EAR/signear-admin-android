@@ -1,6 +1,8 @@
 package com.sullivan.signearadmin.ui_reservation.ui
 
 import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,10 +32,10 @@ class RealTimeReservationActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
-            // 권한 획득 성공 시
-            makeToast("Granted!")
+            //todo 실제 전화기에 영상통화여부 확인 필요
+            makeVideoCall()
         } else {
-            // 권한 획득 거부 시
+            makeToast("영상통화 연결을 위해서 전화 연결 권한이 필요합니다!")
         }
     }
 
@@ -72,7 +74,15 @@ class RealTimeReservationActivity : AppCompatActivity() {
         }
     }
 
-    fun requestPermission() {
+    private fun requestPermission() {
         requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
+    }
+
+    private fun makeVideoCall() {
+        val intent = Intent(Intent.ACTION_CALL).run {
+            data = Uri.parse("tel:01039511218")
+            putExtra("videocall", true)
+        }
+        startActivity(intent)
     }
 }
