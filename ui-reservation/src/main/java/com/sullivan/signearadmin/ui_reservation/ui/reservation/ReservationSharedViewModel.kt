@@ -22,6 +22,9 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     private val _reservationDate = MutableStateFlow<Calendar>(Calendar.getInstance())
     val reservationDate: StateFlow<Calendar> = _reservationDate
 
+    private val _requestCallPermission = MutableStateFlow(false)
+    val requestCallPermission: StateFlow<Boolean> = _requestCallPermission
+
     private val reservationStartTime = MutableStateFlow("")
     private val reservationEndTime = MutableStateFlow("")
     private val reservationTime = MutableStateFlow("")
@@ -183,4 +186,8 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     fun findItemWithIdInPrevList(id: Int) = prevreservationList.find { it.id == id }
 
     fun fetchPrevList() = prevreservationList
+
+    fun updateRequestCallPermission(status: Boolean) {
+        _requestCallPermission.value = status
+    }
 }

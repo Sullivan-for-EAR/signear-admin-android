@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.ex.makeToast
 import com.sullivan.sigenearadmin.ui_reservation.databinding.HomeFragmentBinding
 import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
@@ -20,7 +23,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     private val sharedViewModel: ReservationSharedViewModel by activityViewModels()
+
     private lateinit var observer: MyLifecycleObserver
+    private val requestPermissionLauncher: ActivityResultLauncher<String> by lazy {
+        requireActivity().registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            if (isGranted) {
+                // 권한 획득 성공 시
+                makeToast("Granted!")
+            } else {
+                // 권한 획득 거부 시
+            }
+        }
+    }
 
     private lateinit var reservationDelegateAdapter: ReservationDelegateAdapter
     private val reservationList: MutableList<ReservationType> = mutableListOf(
@@ -106,6 +122,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
         savedInstanceState: Bundle?
     ): View {
         binding = HomeFragmentBinding.inflate(layoutInflater)
+
         return binding.root
     }
 
@@ -115,9 +132,11 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 //    }
 
     override fun setupView() {
+
         binding.apply {
+
             reservationDelegateAdapter =
-                ReservationDelegateAdapter(reservationList) { observer.requestPermission() }
+                ReservationDelegateAdapter(reservationList, sharedViewModel)
 
             rvReservation.apply {
                 setHasFixedSize(true)
@@ -125,4 +144,5 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             }
         }
     }
+
 }

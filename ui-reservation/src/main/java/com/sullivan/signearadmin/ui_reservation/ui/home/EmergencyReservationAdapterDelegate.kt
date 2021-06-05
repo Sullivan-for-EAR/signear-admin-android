@@ -7,8 +7,9 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemEmergencyReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
+import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
 
-class EmergencyReservationAdapterDelegate(private val requestPermission: () -> Unit) :
+class EmergencyReservationAdapterDelegate(private val sharedViewModel: ReservationSharedViewModel) :
     AdapterDelegate<List<ReservationType>>() {
 
     private lateinit var bindingItem: ItemEmergencyReservationBinding
@@ -38,7 +39,7 @@ class EmergencyReservationAdapterDelegate(private val requestPermission: () -> U
         fun bind(item: EmergencyReservation) {
             binding.apply {
                 btnConfirm.setOnClickListener {
-                    requestPermission()
+                    sharedViewModel.updateRequestCallPermission(true)
                 }
             }
         }
