@@ -40,7 +40,7 @@ class NormalReservationAdapterDelegate : AdapterDelegate<List<ReservationType>>(
                 tvReservationStartTime.text = item.startTime
                 tvReservationEndTime.text = item.endTime
                 tvPlace.text = item.place
-                tvPurpose.text = item.purpose
+                tvTranslation.text = if (!item.isContactless) "수어 통역" else "화상 통역"
             }
         }
     }

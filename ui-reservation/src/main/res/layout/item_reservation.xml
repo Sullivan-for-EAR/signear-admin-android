@@ -113,17 +113,17 @@
                 android:id="@+id/iv_purpose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/purpose_icon"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/translation_icon"
                 app:layout_constraintStart_toEndOf="@id/guideline1"
                 app:layout_constraintTop_toBottomOf="@+id/iv_place" />
 
             <TextView
-                android:id="@+id/tv_purpose"
+                android:id="@+id/tv_translation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/tv_purpose_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"

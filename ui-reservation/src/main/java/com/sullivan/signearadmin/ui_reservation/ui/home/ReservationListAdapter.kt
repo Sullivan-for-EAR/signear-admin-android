@@ -36,7 +36,7 @@ class ReservationListAdapter(private val reservationList: List<Reservation>) :
 
                 tvPlace.text = item.place
 
-                tvPurpose.text = item.purpose
+//                tvPurpose.text = item.purpose
 //                    tvUrgent.makeGone()
 //                    btnCancel.makeGone()
 //                    btnNavigation.makeVisible()
