@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sullivan.signearadmin.domain.SignearRepository
-import com.sullivan.signearadmin.ui_reservation.model.Reservation
+import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
+import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
+import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationConfirmDialogState
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -36,43 +37,43 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     private val _confirmDialogState = MutableLiveData<ReservationConfirmDialogState>()
     val confirmDialogState: LiveData<ReservationConfirmDialogState> = _confirmDialogState
 
-    private val _reservationTotalInfo = MutableLiveData<Reservation?>()
-    val reservationTotalInfo: LiveData<Reservation?> = _reservationTotalInfo
+    private val _reservationTotalInfo = MutableLiveData<ReservationType?>()
+    val reservationTotalInfo: LiveData<ReservationType?> = _reservationTotalInfo
 
-    private var reservationList = emptyList<Reservation>()
-    private var prevreservationList = mutableListOf(
-        Reservation(
+    private var reservationList = emptyList<ReservationType>()
+    private var prevReservationList: MutableList<ReservationType> = mutableListOf(
+        EmergencyReservation(
             1,
             "4월 30일(금)",
             "오전 10시",
             "오전 12시",
             "강남구",
-            "서초좋은병원",
+            "중랑좋은병원",
             "",
             false,
-            ReservationState.Cancel("reason")
+            ReservationState.NotConfirm,
+            ""
         ),
-        Reservation(
+        NormalReservation(
             2,
             "4월 30일(금)",
             "오전 10시",
             "오전 12시",
             "강남구", "서초좋은병원", "",
             false,
-            ReservationState.Cancel("reason"),
-            "reason",
-            true
+            ReservationState.NotConfirm
         ),
-        Reservation(
+        NormalReservation(
             3,
             "4월 30일(금)",
             "오전 10시",
             "오전 12시",
             "강남구", "서초좋은병원", "",
             false,
-            ReservationState.Reject("reason")
+            ReservationState.Reject("reason"),
+            NormalReservation.User()
         ),
-        Reservation(
+        NormalReservation(
             4,
             "4월 30일(금)",
             "오전 10시",
@@ -81,9 +82,9 @@ constructor(private val repository: SignearRepository) : ViewModel() {
             "서초좋은병원",
             "",
             false,
-            ReservationState.Served
+            ReservationState.Confirm
         ),
-        Reservation(
+        NormalReservation(
             5,
             "4월 30일(금)",
             "오전 10시",
@@ -94,6 +95,21 @@ constructor(private val repository: SignearRepository) : ViewModel() {
             false,
             ReservationState.Cancel("reason")
         ),
+        NormalReservation(
+            6,
+            "4월 30일(금)", "오전 10시",
+            "오전 12시", "강남구", "서초좋은병원", ""
+        ),
+        NormalReservation(
+            7,
+            "4월 30일(금)", "오전 10시",
+            "오전 12시", "강남구", "서초좋은병원", ""
+        ),
+        NormalReservation(
+            8,
+            "4월 30일(금)", "오전 10시",
+            "오전 12시", "강남구", "서초좋은병원", ""
+        )
     )
 
     fun updateDate(current: Calendar) {
@@ -134,25 +150,25 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     }
 
     fun assembleReservationInfo() {
-        val calendar = _reservationDate.value
-        val currentDate =
-            "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
-                getCurrentDayOfName(calendar)
-            }"
-
-        val currentReservation = Reservation(
-            0,
-            currentDate,
-            reservationStartTime.value,
-            reservationEndTime.value,
-            reservationCenter.value,
-            reservationPlace.value,
-            reservationPurpose.value,
-            reservationTranslationInfo.value
-        )
-
-        _reservationTotalInfo.value = currentReservation
-        Timber.d("${reservationTotalInfo.value}")
+//        val calendar = _reservationDate.value
+//        val currentDate =
+//            "${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 ${
+//                getCurrentDayOfName(calendar)
+//            }"
+//
+//        val currentReservation = Reservation(
+//            0,
+//            currentDate,
+//            reservationStartTime.value,
+//            reservationEndTime.value,
+//            reservationCenter.value,
+//            reservationPlace.value,
+//            reservationPurpose.value,
+//            reservationTranslationInfo.value
+//        )
+//
+//        _reservationTotalInfo.value = currentReservation
+//        Timber.d("${reservationTotalInfo.value}")
     }
 
 
@@ -173,19 +189,21 @@ constructor(private val repository: SignearRepository) : ViewModel() {
         reservationPurpose.value = ""
     }
 
-    fun updateReservationList(list: List<Reservation>) {
+    fun updateReservationList(list: List<ReservationType>) {
         reservationList = list
     }
 
-    fun findItemWithId(id: Int) = reservationList.find { it.id == id }
+    fun findItemWithId(id: Int) = prevReservationList.find {
+        it is NormalReservation && it.id == id
+    } as NormalReservation?
 
-    fun updatePrevReservationList(list: MutableList<Reservation>) {
-        prevreservationList = list
+    fun updatePrevReservationList(list: MutableList<ReservationType>) {
+        prevReservationList = list
     }
 
-    fun findItemWithIdInPrevList(id: Int) = prevreservationList.find { it.id == id }
+//    fun findItemWithIdInPrevList(id: Int) = prevReservationList.find { it.id == id }
 
-    fun fetchPrevList() = prevreservationList
+    fun fetchPrevList() = prevReservationList
 
     fun updateRequestCallPermission(status: Boolean) {
         _requestCallPermission.value = status

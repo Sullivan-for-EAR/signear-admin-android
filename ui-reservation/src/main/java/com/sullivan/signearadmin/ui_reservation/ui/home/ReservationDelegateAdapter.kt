@@ -6,7 +6,7 @@ import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.Re
 
 class ReservationDelegateAdapter(
     reservationList: MutableList<ReservationType>,
-    sharedViewModel: ReservationSharedViewModel
+    sharedViewModel: ReservationSharedViewModel,
 ) :
     ListDelegationAdapter<List<ReservationType>>() {
 

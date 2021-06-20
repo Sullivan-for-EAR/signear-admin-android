@@ -9,7 +9,21 @@
         android:id="@+id/navigation_home"
         android:name="com.sullivan.signearadmin.ui_reservation.ui.ui.home.HomeFragment"
         android:label="@string/bottom_nav_title_home"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_navigation_home_to_reservationInfoActivity"
+            app:destination="@id/reservationInfoActivity"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/homeFragment">
+            <argument
+                android:name="itemId"
+                android:defaultValue="0"
+                app:argType="integer" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +36,9 @@
         android:name="com.sullivan.signearadmin.ui_reservation.ui.ui.notifications.NotificationsFragment"
         android:label="@string/bottom_nav_title_profile"
         tools:layout="@layout/fragment_notifications" />
+    <activity
+        android:id="@+id/reservationInfoActivity"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity"
+        android:label="ReservationInfoActivity" />
+
 </navigation>

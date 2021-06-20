@@ -2,11 +2,15 @@ package com.sullivan.signearadmin.ui_reservation.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
+import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
+import com.sullivan.signearadmin.ui_reservation.ui.ui.home.HomeFragmentDirections
 
 class NormalReservationAdapterDelegate : AdapterDelegate<List<ReservationType>>() {
 
@@ -41,6 +45,9 @@ class NormalReservationAdapterDelegate : AdapterDelegate<List<ReservationType>>(
                 tvReservationEndTime.text = item.endTime
                 tvPlace.text = item.place
                 tvTranslation.text = if (!item.isContactless) "수어 통역" else "화상 통역"
+                btnDetail.setOnClickListener {
+                    it.findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToReservationInfoActivity(item.id))
+                }
             }
         }
     }

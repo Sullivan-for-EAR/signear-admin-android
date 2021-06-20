@@ -37,12 +37,12 @@ class PreviousReservationFragment : BaseFragment<FragmentPreviousReservationBind
     }
 
     override fun setupView() {
-        reservationListAdapter =
-            PreviousReservationListAdapter(
-                viewModel.fetchPrevList(),
-                viewModel,
-//                swipeHelperCallback
-            )
+//        reservationListAdapter =
+//            PreviousReservationListAdapter(
+//                viewModel.fetchPrevList(),
+//                viewModel,
+////                swipeHelperCallback
+//            )
         val id = arguments?.getInt(ARGS_KEY)
         if (id != null) {
             reservationListAdapter.remove(id)

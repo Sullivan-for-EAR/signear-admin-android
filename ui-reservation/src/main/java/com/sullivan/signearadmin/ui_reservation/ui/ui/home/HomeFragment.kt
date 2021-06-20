@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.HomeFragmentBinding
 import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
@@ -119,6 +121,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
             rvReservation.apply {
                 setHasFixedSize(true)
                 adapter = reservationDelegateAdapter
+            }
+
+            tvTitle.setOnClickListener {
+                findNavController().navigate(R.id.action_global_reservationInfoFragment)
             }
         }
     }

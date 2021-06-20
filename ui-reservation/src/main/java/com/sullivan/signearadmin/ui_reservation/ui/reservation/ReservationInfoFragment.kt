@@ -14,7 +14,9 @@ import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.FragmentReservationInfoBinding
+import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.Reservation
+import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
     private val viewModel: ReservationSharedViewModel by activityViewModels()
-    private lateinit var currentReservationInfo: Reservation
+    private lateinit var currentReservationInfo: NormalReservation
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +37,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObserve()
+//        setupObserve()
     }
 
     override fun setupView() {
@@ -44,7 +46,6 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
             if (id != null) {
                 currentReservationInfo = viewModel.findItemWithId(id)!!
                 makeReservationView()
-                makeReservationStatusView()
             }
         }
     }
@@ -54,27 +55,25 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
         viewModel.clearPrevData()
     }
 
-    private fun setupObserve() {
-        viewModel.apply {
-            reservationTotalInfo.observe(viewLifecycleOwner, { reservationTotalInfo ->
-                reservationTotalInfo.let {
-                    if (reservationTotalInfo != null) {
-                        currentReservationInfo = reservationTotalInfo
-                        makeReservationView()
-                        makeReservationStatusView()
-                    }
-                }
-            })
-        }
-    }
+//    private fun setupObserve() {
+//        viewModel.apply {
+//            reservationTotalInfo.observe(viewLifecycleOwner, { reservationTotalInfo ->
+//                reservationTotalInfo.let {
+//                    if (reservationTotalInfo != null) {
+//                        currentReservationInfo = reservationTotalInfo
+//                        makeReservationView()
+//                    }
+//                }
+//            })
+//        }
+//    }
 
     private fun makeReservationView() {
         binding.apply {
-            tvPlace.text = currentReservationInfo.place
-            tvCenter.text = currentReservationInfo.center + R.string.tv_center_title
-            tvReservationDate.text = currentReservationInfo.date
-            tvReservationStartTime.text = currentReservationInfo.startTime
-            tvReservationEndTime.text = currentReservationInfo.endTime
+            tvReservationPlace.text = currentReservationInfo.place
+            tvDate.text = currentReservationInfo.date
+            tvStartTime.text = currentReservationInfo.startTime
+            tvEndTime.text = currentReservationInfo.endTime
 
             if (!currentReservationInfo.isContactless) {
                 tvReservationTranslation.text =
@@ -92,62 +91,6 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                 findNavController().navigate(R.id.action_reservationInfoFragment_pop)
             }
 
-            btnCancel.setOnClickListener {
-                showCancelDialog()
-            }
-        }
-    }
-
-    private fun makeReservationStatusView() {
-        binding.apply {
-            when (currentReservationInfo.currentState) {
-                is ReservationState.NotRead -> {
-                    statusNotRead.isSelected = true
-                    statusNotConfirm.isSelected = false
-                    statusConfirm.isSelected = false
-                    ivFlag.isSelected = false
-
-                    makeBlue(tvStatusNotRead)
-                    makeGray(tvStatusNotConfirm)
-                    makeGray(tvStatusConfirm)
-
-                    makeUsualStatusView()
-                }
-
-                is ReservationState.NotConfirm -> {
-                    statusNotRead.isSelected = false
-                    statusNotConfirm.isSelected = true
-                    statusConfirm.isSelected = false
-                    ivFlag.isSelected = false
-
-                    makeGray(tvStatusNotRead)
-                    makeBlue(tvStatusNotConfirm)
-                    makeGray(tvStatusConfirm)
-
-                    makeUsualStatusView()
-                }
-
-                is ReservationState.Confirm -> {
-                    statusNotRead.isSelected = false
-                    statusNotConfirm.isSelected = false
-                    statusConfirm.isSelected = true
-                    ivFlag.isSelected = true
-
-                    makeGray(tvStatusNotRead)
-                    makeGray(tvStatusNotConfirm)
-                    makeBlue(tvStatusConfirm)
-
-                    makeUsualStatusView()
-                }
-
-                is ReservationState.Cancel -> {
-                    makeCancelStatusView()
-                }
-
-                is ReservationState.Reject -> {
-                    makeRejectStatusView()
-                }
-            }
         }
     }
 
@@ -176,69 +119,6 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
                 R.color.btn_reservation_cancel_color
             )
         )
-    }
-
-    private fun makeCancelStatusView() {
-        binding.apply {
-            tvStatusNotRead.makeGone()
-            tvStatusNotConfirm.makeGone()
-            tvStatusConfirm.makeGone()
-            tvStatusCancelReject.apply {
-                makeVisible()
-                text = "에약 취소"
-                makeGray(this)
-            }
-
-            statusNotRead.makeGone()
-            statusNotConfirm.makeGone()
-            statusConfirm.makeGone()
-            statusCancelReject.apply {
-                makeVisible()
-                isSelected = false
-            }
-
-            btnCancel.makeGone()
-        }
-    }
-
-    private fun makeRejectStatusView() {
-        binding.apply {
-            tvStatusNotRead.makeGone()
-            tvStatusNotConfirm.makeGone()
-            tvStatusConfirm.makeGone()
-            tvStatusCancelReject.apply {
-                makeVisible()
-                text = "에약 거절"
-                makeRed(this)
-            }
-
-            statusNotRead.makeGone()
-            statusNotConfirm.makeGone()
-            statusConfirm.makeGone()
-            statusCancelReject.apply {
-                makeVisible()
-                isSelected = true
-            }
-
-            btnCancel.makeGone()
-            showDialog()
-        }
-    }
-
-    private fun makeUsualStatusView() {
-        binding.apply {
-            tvStatusNotRead.makeVisible()
-            tvStatusNotConfirm.makeVisible()
-            tvStatusConfirm.makeVisible()
-            tvStatusCancelReject.makeGone()
-
-            statusNotRead.makeVisible()
-            statusNotConfirm.makeVisible()
-            statusConfirm.makeVisible()
-            statusCancelReject.makeGone()
-
-            btnCancel.makeVisible()
-        }
     }
 
     private fun showDialog() {

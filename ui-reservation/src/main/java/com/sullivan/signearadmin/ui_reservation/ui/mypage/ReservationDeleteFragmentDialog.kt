@@ -47,7 +47,7 @@ class ReservationDeleteFragmentDialog : BottomSheetDialogFragment() {
         binding.apply {
             val id = arguments?.getInt(ARGS_KEY)
             if (id != null) {
-                currentReservationInfo = id.let { viewModel.findItemWithIdInPrevList(it)!! }
+//                currentReservationInfo = id.let { viewModel.findItemWithIdInPrevList(it)!! }
                 makeReservationView()
 
                 btnDelete.setOnClickListener {
