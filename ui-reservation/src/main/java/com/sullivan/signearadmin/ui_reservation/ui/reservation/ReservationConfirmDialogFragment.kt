@@ -50,7 +50,7 @@ class ReservationConfirmDialogFragment : BottomSheetDialogFragment() {
 
 
     private fun setupView() {
-        binding.apply {
+        with(binding) {
             tvTime.text = viewModel.fetchReservationTime()
 
             btnView.setOnClickListener {

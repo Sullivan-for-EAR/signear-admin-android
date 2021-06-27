@@ -61,7 +61,7 @@ class RealTimeReservationActivity : AppCompatActivity() {
     }
 
     private fun setupObserve() {
-        viewModel.apply {
+        with(viewModel) {
             lifecycleScope.launch {
                 requestCallPermission.collect { status ->
                     if (status) {

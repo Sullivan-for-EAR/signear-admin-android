@@ -2,11 +2,9 @@ package com.sullivan.signearadmin.ui_reservation.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
-import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType

@@ -253,7 +253,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_reject"
             android:layout_width="0dp"
-            android:layout_height="57dp"
+            android:layout_height="64dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/white"
@@ -272,7 +272,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_approve"
             android:layout_width="0dp"
-            android:layout_height="57dp"
+            android:layout_height="64dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/btn_approve_color"

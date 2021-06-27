@@ -113,7 +113,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 //    }
 
     override fun setupView() {
-        binding.apply {
+        with(binding) {
 
             reservationDelegateAdapter =
                 ReservationDelegateAdapter(reservationList, sharedViewModel)
