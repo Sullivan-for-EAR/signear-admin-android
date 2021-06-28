@@ -1,13 +1,14 @@
 package com.sullivan.signearadmin.ui_reservation.ui.reservation
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.navigation.findNavController
+import androidx.appcompat.content.res.AppCompatResources
 import com.sullivan.common.ui_common.ex.*
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityReservationInfoBinding
@@ -15,7 +16,7 @@ import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity
 import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.reflect.KFunction0
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ReservationInfoActivity : AppCompatActivity() {
@@ -49,12 +50,12 @@ class ReservationInfoActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        val id = intent.getIntExtra(ReservationInfoFragment.ARGS_KEY, 0)
+        val id = intent.getIntExtra(ID, 0)
         currentReservationInfo = viewModel.findItemWithId(id)!!
-        makeReservationView()
+        intent.getStringExtra(FROM)?.let { makeReservationView(it) }
     }
 
-    private fun makeReservationView() {
+    private fun makeReservationView(from: String) {
         with(binding) {
             tvReservationPlace.text = currentReservationInfo.place
             tvDate.text = currentReservationInfo.date
@@ -75,7 +76,38 @@ class ReservationInfoActivity : AppCompatActivity() {
             tvReservationPurpose.text = currentReservationInfo.purpose
 
             btnBack.setOnClickListener {
-//                findNavController().navigate(R.id.action_reservationInfoFragment_pop)
+                finish()
+            }
+
+            Timber.d(from)
+            when (from) {
+                "scheduleList" -> {
+                    with(btnContact) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            setBackgroundColor(resources.getColor(R.color.black, null))
+                        } else {
+                            setBackgroundColor(resources.getColor(R.color.black))
+
+                        }
+                        setTextColor(AppCompatResources.getColorStateList(context, R.color.white))
+                    }
+                    btnReject.makeGone()
+                    btnApprove.makeGone()
+                }
+
+
+                "reservationList" -> {
+                    with(btnContact) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            setBackgroundColor(resources.getColor(R.color.white, null))
+                        } else {
+                            setBackgroundColor(resources.getColor(R.color.white))
+                        }
+                        setTextColor(AppCompatResources.getColorStateList(context, R.color.black))
+                    }
+                    btnReject.makeVisible()
+                    btnApprove.makeVisible()
+                }
             }
 
             btnContact.setOnClickListener {
@@ -106,5 +138,18 @@ class ReservationInfoActivity : AppCompatActivity() {
 
     private fun requestPermission() {
         requestPermissionLauncher.launch(Manifest.permission.CALL_PHONE)
+    }
+
+    companion object {
+        private const val FROM = "from"
+        private const val ID = "id"
+
+        @JvmStatic
+        fun newIntent(context: Context, from: String, id: Int): Intent {
+            return Intent(context, ReservationInfoActivity::class.java).apply {
+                putExtra(FROM, from)
+                putExtra(ID, id)
+            }
+        }
     }
 }

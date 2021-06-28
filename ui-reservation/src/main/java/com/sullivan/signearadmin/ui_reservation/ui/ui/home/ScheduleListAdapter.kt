@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemScheduleBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity.Companion.newIntent
 
 class ScheduleListAdapter(private val scheduleList: MutableList<NormalReservation>) :
     RecyclerView.Adapter<ScheduleListViewHolder>() {
@@ -39,9 +40,9 @@ class ScheduleListViewHolder(private val binding: ItemScheduleBinding) :
             } else {
                 ivTranslation.setBackgroundResource(R.drawable.online_translation_icon)
             }
-//            btnDetail.setOnClickListener {
-//                it.findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToReservationInfoActivity(item.id))
-//            }
+            rootView.setOnClickListener {
+                it.context.startActivity(newIntent(it.context, "scheduleList", item.id))
+            }
         }
     }
 }

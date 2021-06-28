@@ -8,6 +8,8 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity.Companion.newIntent
 import com.sullivan.signearadmin.ui_reservation.ui.ui.home.HomeFragmentDirections
 
 class NormalReservationAdapterDelegate : AdapterDelegate<List<ReservationType>>() {
@@ -44,7 +46,8 @@ class NormalReservationAdapterDelegate : AdapterDelegate<List<ReservationType>>(
                 tvPlace.text = item.place
                 tvTranslation.text = if (!item.isContactless) "수어 통역" else "화상 통역"
                 btnDetail.setOnClickListener {
-                    it.findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToReservationInfoActivity(item.id))
+//                    it.findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToReservationInfoActivity(item.id))
+                    it.context.startActivity(newIntent(it.context, "reservationList", item.id))
                 }
             }
         }
