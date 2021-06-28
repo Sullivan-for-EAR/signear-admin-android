@@ -8,10 +8,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
-import com.sullivan.common.ui_common.ex.launchActivity
-import com.sullivan.common.ui_common.ex.makeToast
-import com.sullivan.common.ui_common.ex.openDialog
-import com.sullivan.common.ui_common.ex.setupDialogWithAction
+import com.sullivan.common.ui_common.ex.*
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityReservationInfoBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
@@ -104,7 +101,7 @@ class ReservationInfoActivity : AppCompatActivity() {
     }
 
     private fun approveReservation() {
-        launchActivity<RealTimeReservationActivity>()
+        reorderToActivity<RealTimeReservationActivity>()
     }
 
     private fun requestPermission() {
