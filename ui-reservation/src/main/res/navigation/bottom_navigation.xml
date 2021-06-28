@@ -27,9 +27,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.sullivan.signearadmin.ui_reservation.ui.ui.dashboard.DashboardFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.schedule.ScheduleFragment"
         android:label="@string/bottom_nav_title_management"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_schedule" />
 
     <fragment
         android:id="@+id/navigation_notifications"
