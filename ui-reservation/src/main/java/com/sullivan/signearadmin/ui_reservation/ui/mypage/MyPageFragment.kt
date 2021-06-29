@@ -33,18 +33,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     }
 
     override fun setupView() {
-        itemArray = resources.getStringArray(R.array.my_page_items)
+        itemArray = resources.getStringArray(R.array.profile_items)
         itemList =
-            listOf(MyPageItem(itemArray[0]), MyPageItem(itemArray[1]), MyPageItem(itemArray[2]))
+            listOf(MyPageItem(itemArray[0]), MyPageItem(itemArray[1]))
 
         binding.apply {
-            btnEmergency.setOnClickListener {
-//                findNavController().navigate(R.id.action_myPageFragment_to_emergencyReservationFragment)
-            }
-
-            btnBack.setOnClickListener {
-                findNavController().navigate(R.id.action_myPageFragment_pop)
-            }
 
             myPageListAdapter = MyPageListAdapter(itemList, loginNavigator, requireActivity())
             rvMypage.apply {

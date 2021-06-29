@@ -14,23 +14,23 @@ class PrevReservationViewModel @Inject
 constructor(private val repository: SignearRepository) : ViewModel() {
 
     private var prevReservations = mutableListOf(
-        Reservation(
-            1,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원서초좋은병원서초좋은병원서초좋은병원",
-            "",
-            false,
-            ReservationState.Cancel("reason")
-        ),
+//        Reservation(
+//            1,
+//            "4월 30일(금)",
+//            "오전 10시",
+//            "오전 12시",
+//            "강남구",
+//            "서초좋은병원서초좋은병원서초좋은병원서초좋은병원",
+//            "",
+//            false,
+//            ReservationState.Cancel("reason")
+//        ),
         Reservation(
             2,
             "4월 30일(금)",
+            "오전 8시",
             "오전 10시",
-            "오전 12시",
-            "강남구", "서초좋은병원", "",
+            "강남구", "중랑좋은병원", "",
             false,
             ReservationState.Cancel("reason"),
             "reason",

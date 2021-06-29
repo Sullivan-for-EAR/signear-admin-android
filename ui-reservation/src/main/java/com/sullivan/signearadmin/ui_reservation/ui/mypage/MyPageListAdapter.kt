@@ -10,6 +10,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jaredrummler.materialspinner.BuildConfig.VERSION_NAME
+import com.sullivan.common.ui_common.ex.makeGone
+import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.sigenearadmin.ui_reservation.BuildConfig
 import com.sullivan.sigenearadmin.ui_reservation.R
@@ -33,9 +35,18 @@ class MyPageListAdapter(
                     when (item.title) {
 //                        itemList[0].title -> it.findNavController()
 //                            .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
-                        itemList[1].title -> showDialog(it.context)
-                        itemList[2].title -> sendEmail(it.context)
+                        itemList[1].title -> {
+                            showDialog(it.context)
+                        }
+                        itemList[0].title -> {
+                            sendEmail(it.context)
+                        }
                     }
+                }
+
+                when (item.title) {
+                    itemList[1].title -> ivBubble.makeGone()
+                    itemList[0].title -> ivBubble.makeVisible()
                 }
             }
         }

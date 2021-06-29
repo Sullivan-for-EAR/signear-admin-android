@@ -32,10 +32,10 @@
         tools:layout="@layout/fragment_schedule" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.sullivan.signearadmin.ui_reservation.ui.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_profile"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.mypage.MyPageFragment"
         android:label="@string/bottom_nav_title_profile"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_my_page" />
     <activity
         android:id="@+id/reservationInfoActivity"
         android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity"

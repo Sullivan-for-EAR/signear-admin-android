@@ -22,11 +22,11 @@ class PreviousReservationListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Reservation) {
             binding.apply {
-                if (item.isEmergency) {
-                    tvPlace.text = R.string.fragment_emergency_reservation_title.toString()
-                } else {
+//                if (item.isEmergency) {
+//                    tvPlace.text = R.string.fragment_emergency_reservation_title.toString()
+//                } else {
                     tvPlace.text = item.place
-                }
+//                }
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
                 showReservationState(item.currentState, ivState)

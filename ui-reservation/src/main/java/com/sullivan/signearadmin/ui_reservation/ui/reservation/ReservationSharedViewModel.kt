@@ -58,9 +58,9 @@ constructor(private val repository: SignearRepository) : ViewModel() {
         NormalReservation(
             2,
             "4월 30일(금)",
+            "오전 8시",
             "오전 10시",
-            "오전 12시",
-            "강남구", "서초좋은병원", "",
+            "강남구", "중랑좋은병원", "",
             false,
             ReservationState.NotConfirm
         ),
@@ -111,62 +111,6 @@ constructor(private val repository: SignearRepository) : ViewModel() {
             "4월 30일(금)", "오전 10시",
             "오전 12시", "강남구", "서초좋은병원", ""
         )
-    )
-
-    private var prevReservations = mutableListOf(
-        Reservation(
-            1,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원서초좋은병원서초좋은병원서초좋은병원",
-            "",
-            false,
-            ReservationState.Cancel("reason")
-        ),
-        Reservation(
-            2,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구", "서초좋은병원", "",
-            false,
-            ReservationState.Cancel("reason"),
-            "reason",
-            true
-        ),
-        Reservation(
-            3,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구", "서초좋은병원", "",
-            false,
-            ReservationState.Reject("reason")
-        ),
-        Reservation(
-            4,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원",
-            "",
-            false,
-            ReservationState.Served
-        ),
-        Reservation(
-            5,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원",
-            "",
-            false,
-            ReservationState.Cancel("reason")
-        ),
     )
 
     fun updateDate(current: Calendar) {
@@ -259,8 +203,6 @@ constructor(private val repository: SignearRepository) : ViewModel() {
     }
 
 //    fun findItemWithIdInPrevList(id: Int) = prevReservationList.find { it.id == id }
-
-    fun fetchPrevList() = prevReservations
 
     fun updateRequestCallPermission(status: Boolean) {
         _requestCallPermission.value = status
