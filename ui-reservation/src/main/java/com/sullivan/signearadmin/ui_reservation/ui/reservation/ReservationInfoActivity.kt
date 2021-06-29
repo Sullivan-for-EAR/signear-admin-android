@@ -105,6 +105,12 @@ class ReservationInfoActivity : AppCompatActivity() {
                     btnReject.makeVisible()
                     btnApprove.makeVisible()
                 }
+
+                else -> {
+                    btnReject.makeGone()
+                    btnApprove.makeGone()
+                    btnContact.makeGone()
+                }
             }
 
             btnContact.setOnClickListener {

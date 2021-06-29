@@ -10,6 +10,7 @@ import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemPrevReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.Reservation
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity.Companion.newIntent
 
 class PreviousReservationListAdapter(
     private val reservationList: MutableList<Reservation>
@@ -29,16 +30,17 @@ class PreviousReservationListAdapter(
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
                 showReservationState(item.currentState, ivState)
-//
-//                rvReservation.setOnClickListener {
-//                    it.findNavController()
-//                        .navigate(
-//                            PreviousReservationFragmentDirections.actionPreviousReservationFragmentToReservationDeleteFragmentDialog(
-//                                item.id
-//                            )
-//                        )
-//                }
-//
+
+                rvReservation.setOnClickListener {
+                    it.context.startActivity(
+                        newIntent(
+                            it.context,
+                            "prevReservationList",
+                            item.id
+                        )
+                    )
+                }
+
             }
         }
 
