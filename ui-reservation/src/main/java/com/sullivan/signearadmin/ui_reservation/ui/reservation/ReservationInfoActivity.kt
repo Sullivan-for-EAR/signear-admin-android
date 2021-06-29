@@ -14,7 +14,6 @@ import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityReservationInfoBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity
-import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -79,7 +78,6 @@ class ReservationInfoActivity : AppCompatActivity() {
                 finish()
             }
 
-            Timber.d(from)
             when (from) {
                 "scheduleList" -> {
                     with(btnContact) {
@@ -94,7 +92,6 @@ class ReservationInfoActivity : AppCompatActivity() {
                     btnReject.makeGone()
                     btnApprove.makeGone()
                 }
-
 
                 "reservationList" -> {
                     with(btnContact) {

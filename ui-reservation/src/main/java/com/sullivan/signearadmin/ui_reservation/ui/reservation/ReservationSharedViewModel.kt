@@ -1,4 +1,4 @@
-package com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation
+package com.sullivan.signearadmin.ui_reservation.ui.reservation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.sullivan.signearadmin.domain.SignearRepository
 import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
+import com.sullivan.signearadmin.ui_reservation.model.Reservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationConfirmDialogState
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
@@ -112,6 +113,62 @@ constructor(private val repository: SignearRepository) : ViewModel() {
         )
     )
 
+    private var prevReservations = mutableListOf(
+        Reservation(
+            1,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원서초좋은병원서초좋은병원서초좋은병원",
+            "",
+            false,
+            ReservationState.Cancel("reason")
+        ),
+        Reservation(
+            2,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구", "서초좋은병원", "",
+            false,
+            ReservationState.Cancel("reason"),
+            "reason",
+            true
+        ),
+        Reservation(
+            3,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구", "서초좋은병원", "",
+            false,
+            ReservationState.Reject("reason")
+        ),
+        Reservation(
+            4,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원",
+            "",
+            false,
+            ReservationState.Served
+        ),
+        Reservation(
+            5,
+            "4월 30일(금)",
+            "오전 10시",
+            "오전 12시",
+            "강남구",
+            "서초좋은병원",
+            "",
+            false,
+            ReservationState.Cancel("reason")
+        ),
+    )
+
     fun updateDate(current: Calendar) {
         _reservationDate.value = current
     }
@@ -203,7 +260,7 @@ constructor(private val repository: SignearRepository) : ViewModel() {
 
 //    fun findItemWithIdInPrevList(id: Int) = prevReservationList.find { it.id == id }
 
-    fun fetchPrevList() = prevReservationList
+    fun fetchPrevList() = prevReservations
 
     fun updateRequestCallPermission(status: Boolean) {
         _requestCallPermission.value = status

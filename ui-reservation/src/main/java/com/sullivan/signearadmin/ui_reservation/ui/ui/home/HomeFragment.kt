@@ -14,7 +14,7 @@ import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import com.sullivan.signearadmin.ui_reservation.ui.home.ReservationDelegateAdapter
-import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

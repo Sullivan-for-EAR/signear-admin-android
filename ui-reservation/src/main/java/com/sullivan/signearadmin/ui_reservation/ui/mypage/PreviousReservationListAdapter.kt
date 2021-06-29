@@ -1,28 +1,23 @@
 package com.sullivan.signearadmin.ui_reservation.ui.mypage
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.sigenearadmin.ui_reservation.R
-import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemReservationBinding
+import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemPrevReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.Reservation
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
-import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
 
 class PreviousReservationListAdapter(
-    private val reservationList: MutableList<Reservation>,
-    private val sharedViewModel: ReservationSharedViewModel,
-//    swipeHelperCallback: SwipeHelperCallback
+    private val reservationList: MutableList<Reservation>
 ) :
     RecyclerView.Adapter<PreviousReservationListAdapter.ReservationListViewHolder>() {
-    private lateinit var bindingItem: ItemReservationBinding
+    private lateinit var bindingItem: ItemPrevReservationBinding
 
-    inner class ReservationListViewHolder(private val binding: ItemReservationBinding) :
+    inner class ReservationListViewHolder(private val binding: ItemPrevReservationBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Reservation) {
             binding.apply {
@@ -33,7 +28,7 @@ class PreviousReservationListAdapter(
                 }
 
                 "${item.date} ${item.startTime}".also { tvDate.text = it }
-//                showReservationState(item.currentState, ivState)
+                showReservationState(item.currentState, ivState)
 //
 //                rvReservation.setOnClickListener {
 //                    it.findNavController()
@@ -44,9 +39,6 @@ class PreviousReservationListAdapter(
 //                        )
 //                }
 //
-//                btnDelete.setOnClickListener {
-//                    remove(item.id)
-//                }
             }
         }
 
@@ -73,10 +65,6 @@ class PreviousReservationListAdapter(
                 else -> ivState.makeGone()
             }
         }
-
-//        fun getBtnDelete(): View = binding.btnDelete
-//
-//        fun getSwipeView(): View = binding.rvReservation
     }
 
     override fun onCreateViewHolder(
@@ -84,7 +72,7 @@ class PreviousReservationListAdapter(
         viewType: Int
     ): PreviousReservationListAdapter.ReservationListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        bindingItem = ItemReservationBinding.inflate(layoutInflater)
+        bindingItem = ItemPrevReservationBinding.inflate(layoutInflater)
         return ReservationListViewHolder(bindingItem)
     }
 
@@ -96,14 +84,4 @@ class PreviousReservationListAdapter(
     override fun getItemCount() = reservationList.size
 
     override fun getItemId(position: Int) = reservationList[position].id.toLong()
-
-    fun remove(id: Int) {
-        val position = reservationList.indexOf(reservationList.find { it.id == id })
-        if (position != -1) {
-            reservationList.removeAt(position)
-//            sharedViewModel.updatePrevReservationList(reservationList)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, reservationList.size)
-        }
-    }
 }

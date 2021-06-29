@@ -1,5 +1,6 @@
 package com.sullivan.signearadmin.ui_reservation.ui.schedule
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.sigenearadmin.ui_reservation.databinding.FragmentScheduleBinding
-import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
-import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
-import com.sullivan.signearadmin.ui_reservation.ui.ui.home.ScheduleListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -100,6 +98,10 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
                 adapter = scheduleListAdapter
                 setHasFixedSize(true)
                 addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            }
+
+            ibPrevReservation.setOnClickListener {
+                startActivity(Intent(requireContext(), PrevReservationListActivity::class.java))
             }
         }
     }

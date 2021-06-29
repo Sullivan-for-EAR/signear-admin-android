@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.sigenearadmin.ui_reservation.databinding.FragmentInfoBinding
 import com.sullivan.signearadmin.ui_reservation.model.Reservation
-import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

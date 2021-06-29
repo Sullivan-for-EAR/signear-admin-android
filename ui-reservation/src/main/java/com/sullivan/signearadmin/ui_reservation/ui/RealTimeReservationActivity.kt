@@ -16,7 +16,7 @@ import com.sullivan.common.ui_common.ex.makeToast
 import com.sullivan.common.ui_common.ex.setupDialogWithAction
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityRealTimeReservationBinding
-import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

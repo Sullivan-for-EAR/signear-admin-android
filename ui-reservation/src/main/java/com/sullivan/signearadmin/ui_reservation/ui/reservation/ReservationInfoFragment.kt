@@ -10,15 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sullivan.common.ui_common.base.BaseFragment
-import com.sullivan.common.ui_common.ex.makeGone
-import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.FragmentReservationInfoBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
-import com.sullivan.signearadmin.ui_reservation.model.Reservation
-import com.sullivan.signearadmin.ui_reservation.model.ReservationType
-import com.sullivan.signearadmin.ui_reservation.state.ReservationState
-import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

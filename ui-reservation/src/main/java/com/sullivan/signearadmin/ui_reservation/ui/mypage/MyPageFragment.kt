@@ -39,7 +39,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
 
         binding.apply {
             btnEmergency.setOnClickListener {
-                findNavController().navigate(R.id.action_myPageFragment_to_emergencyReservationFragment)
+//                findNavController().navigate(R.id.action_myPageFragment_to_emergencyReservationFragment)
             }
 
             btnBack.setOnClickListener {

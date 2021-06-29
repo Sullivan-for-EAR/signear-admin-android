@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sullivan.signear.ui_reservation.ui.mypage.PreviousReservationFragment">
+    tools:context="com.sullivan.signearadmin.ui_reservation.ui.schedule.PrevReservationListActivity">
 
     <ImageButton
         android:id="@+id/btn_back"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        tools:listitem="@layout/item_reservation" />
+        tools:listitem="@layout/item_prev_reservation" />
 
     <ImageView
         android:id="@+id/iv_prev_reservation"

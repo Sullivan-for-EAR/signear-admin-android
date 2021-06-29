@@ -7,7 +7,7 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemEmergencyReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
-import com.sullivan.signearreservationTotalInfo.ui_reservation.ui.reservation.ReservationSharedViewModel
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationSharedViewModel
 
 class EmergencyReservationAdapterDelegate(private val sharedViewModel: ReservationSharedViewModel) :
     AdapterDelegate<List<ReservationType>>() {

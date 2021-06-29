@@ -49,6 +49,11 @@
             android:theme="@style/ReservationTheme"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name="com.sullivan.signearadmin.ui_reservation.ui.schedule.PrevReservationListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ReservationTheme" />
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"

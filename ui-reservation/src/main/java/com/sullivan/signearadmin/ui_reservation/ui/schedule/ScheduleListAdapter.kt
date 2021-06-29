@@ -1,4 +1,4 @@
-package com.sullivan.signearadmin.ui_reservation.ui.ui.home
+package com.sullivan.signearadmin.ui_reservation.ui.schedule
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
