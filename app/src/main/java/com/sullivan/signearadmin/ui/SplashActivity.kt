@@ -4,13 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.sullivan.common.core.DataState
 import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,11 +25,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(binding.root)
-//        moveToLoginScreen()
-        checkApi()
-
-        moveToMainScreen()
+        checkAccessToken()
+        observeViewModel()
     }
 
     private fun moveToLoginScreen() {
@@ -48,14 +43,21 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkApi() {
-        viewModel.rankList.observe(this, { result ->
+    private fun checkAccessToken() {
+        if (viewModel.checkAccessToken()) {
+            viewModel.checkIsAccessTokenValid()
+        } else {
+            moveToLoginScreen()
+        }
+    }
 
-            when (result) {
-                is DataState.Success<*> -> {
-                    Timber.d("${result.data}")
+    private fun observeViewModel() {
+        with(viewModel) {
+            resultCheckAccessToken.observe(this@SplashActivity, { response ->
+                if (response.result) {
+                    moveToMainScreen()
                 }
-            }
-        })
+            })
+        }
     }
 }

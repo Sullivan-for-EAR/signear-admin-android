@@ -1,7 +1,9 @@
 package com.sullivan.signearadmin.data.remote
 
 import com.sullivan.common.core.DataState
-import com.sullivan.signearadmin.data.model.RankingInfo
+import com.sullivan.signear.data.model.ResponseLogin
+import com.sullivan.signearadmin.data.model.ResponseCheckAccessToken
+import com.sullivan.signearadmin.data.model.ResponseCheckEmail
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -10,23 +12,31 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 class NetworkDataSource @Inject constructor(private val apiService: ApiService) {
-    suspend fun requestLogin() {
 
-    }
-
-    suspend fun fetchRankInfo(): Flow<DataState<RankingInfo>> =
+    suspend fun checkEmail(email: String): Flow<DataState<ResponseCheckEmail>> =
         callbackFlow {
+            trySend(DataState.Success(apiService.checkEmail(email)))
+            awaitClose { close() }
+        }
 
-//            emit(DataState.Loading)
-//            delay(1000)
-//            try {
-//                val resultList = apiService.fetchRankInfo()
-//                emit(DataState.Success(resultList))
-//            } catch (e: Exception) {
-//                emit(DataState.Error(e))
-//            }
+    suspend fun login(email: String, password: String): Flow<DataState<ResponseLogin>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.login(
+                        hashMapOf(
+                            "email" to email,
+                            "password" to password
+                        )
+                    )
+                )
+            )
+            awaitClose { close() }
+        }
 
-            offer(DataState.Success(apiService.fetchRankInfo()))
+    suspend fun checkAccessToken(): Flow<DataState<ResponseCheckAccessToken>> =
+        callbackFlow {
+            trySend(DataState.Success(apiService.checkAccessToken()))
             awaitClose { close() }
         }
 }
