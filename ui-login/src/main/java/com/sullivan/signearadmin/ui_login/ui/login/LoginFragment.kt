@@ -10,13 +10,18 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.common.ui_common.ex.*
+import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import com.sullivan.signearadmin.ui_login.R
 import com.sullivan.signearadmin.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import timber.log.Timber
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -30,6 +35,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         "^\\s*(010|011|012|013|014|015|016|017|018|019)(-|\\)|\\s)*(\\d{3,4})(-|\\s)*(\\d{4})\\s*$",
         Pattern.CASE_INSENSITIVE
     )
+
+    @Inject
+    lateinit var reservationNavigator: ReservationNavigator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,12 +61,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         is LoginState.Init -> {
                             val email = etEmailInput.text.toString().trim()
                             if (email.isNotEmpty()) {
-                                viewModel.updateLoginState(LoginState.EmailValid)
-                            } else {
-                                viewModel.updateLoginState(LoginState.JoinMember)
+                                viewModel.checkEmail(email)
                             }
                         }
                         is LoginState.EmailValid -> {
+                            val email = etEmailInput.text.toString().trim()
                             val password = etPasswordInput.text.toString().trim()
                             if (password.isNotEmpty()) {
                                 etPasswordInput.apply {
@@ -66,6 +73,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                     hideKeyboard()
                                 }
                             }
+                            viewModel.login(email, password)
                         }
                     }
                 }
@@ -88,12 +96,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
 
                 btnJoin.setOnClickListener {
-                    viewModel.updateLoginState(LoginState.Success)
+                    val email = etEmailInput.text.toString().trim()
+                    val password = etPasswordInput.text.toString().trim()
+                    val center = etCenterInput.text.toString().trim()
+                    if (email.isNotEmpty() && password.isNotEmpty() && center.isNotEmpty()) {
+                        etCenterInput.apply {
+                            clearFocus()
+                            hideKeyboard()
+                        }
+                        viewModel.createUser(email, password, center)
+                    }
                 }
 
-                btnFindAccount.setOnClickListener {
-                    viewModel.updateLoginState(LoginState.FindAccount)
-                }
+//                btnFindAccount.setOnClickListener {
+//                    viewModel.updateLoginState(LoginState.FindAccount)
+//                }
             }
 
             findAccountLayout.apply {
@@ -120,13 +137,52 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             showFindAccountView()
                         }
                         is LoginState.Success -> {
-                            findNavController().navigate(R.id.action_loginFragment_to_loginFinishFragment)
+                            moveToMainScreen()
                         }
                         is LoginState.JoinMember -> {
                             showMemberJoinView()
                         }
+                        is LoginState.JoinSuccess -> {
+                            findNavController().navigate(R.id.action_loginFragment_to_loginFinishFragment)
+                        }
                     }
                 }
+            })
+
+            resultCheckEmail.observe(viewLifecycleOwner, { response ->
+                if (response.result) {
+                    if (viewModel.checkCurrentState() == LoginState.Init) {
+                        viewModel.updateLoginState(LoginState.EmailValid)
+                    } else {
+                        showNewPasswordInputRequestView()
+                    }
+                } else {
+                    if (viewModel.checkCurrentState() == LoginState.Init) {
+                        viewModel.updateLoginState(LoginState.JoinMember)
+                    } else {
+                        makeToast("입력하신 이메일의 계정이 존재하지 않습니다!")
+                    }
+                }
+            })
+
+            resultLogin.observe(viewLifecycleOwner, { response ->
+                if (response.accessToken.isNotEmpty()) {
+                    viewModel.updateLoginState(LoginState.Success)
+                } else {
+                    makeToast("로그인 실패: 비밀번호를 다시 입력해주세요!")
+                }
+            })
+
+            resultJoin.observe(viewLifecycleOwner, { response ->
+                if (response.accessToken.isNotEmpty()) {
+                    viewModel.updateLoginState(LoginState.JoinSuccess)
+                } else {
+                    makeToast("회원 가입 실패!")
+                }
+            })
+
+            errorMsg.observe(viewLifecycleOwner, { msg ->
+                makeToast(msg)
             })
         }
     }
@@ -134,7 +190,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun setTextWatcher() {
         var email: String
         var password: String
-        var phone: String
+        var center: String
 
         binding.loginLayout.etEmailInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -200,8 +256,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 binding.loginLayout.apply {
                     email = etEmailInput.text.toString().trim()
                     password = etPasswordInput.text.toString().trim()
-                    phone = etCenterInput.text.toString().trim()
-                    if (phone.isNotEmpty() && checkPhoneValidation(phone) && password.isNotEmpty() && email.isNotEmpty()) {
+                    center = etCenterInput.text.toString().trim()
+                    Timber.d("center: $center")
+                    if (center.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty()) {
                         makeBtnEnable(btnJoin)
                     } else {
                         makeBtnDisable(btnJoin)
@@ -221,8 +278,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 binding.loginLayout.apply {
                     email = etEmailInput.text.toString().trim()
                     password = etPasswordInput.text.toString().trim()
-                    phone = etCenterInput.text.toString().trim()
-                    if (password.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty()) {
+                    center = etCenterInput.text.toString().trim()
+                    if (password.isNotEmpty() && email.isNotEmpty() && center.isNotEmpty()) {
                         makeBtnEnable(btnJoin)
                     } else {
                         makeBtnDisable(btnJoin)
@@ -230,6 +287,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             }
         })
+    }
+
+    private fun moveToMainScreen() {
+        lifecycleScope.launchWhenCreated {
+            delay(1_000)
+            reservationNavigator.openRealTimeReservationHome(requireActivity())
+        }
     }
 
     private fun checkEmailValidation(input: String) = validEmailRegex.matcher(input).matches()

@@ -39,4 +39,24 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             trySend(DataState.Success(apiService.checkAccessToken()))
             awaitClose { close() }
         }
+
+    suspend fun createUser(
+        email: String,
+        password: String,
+        center: String
+    ): Flow<DataState<ResponseLogin>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.createUser(
+                        hashMapOf(
+                            "email" to email,
+                            "password" to password,
+                            "address" to center
+                        )
+                    )
+                )
+            )
+            awaitClose { close() }
+        }
 }

@@ -6,10 +6,8 @@ import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.jaredrummler.materialspinner.BuildConfig.VERSION_NAME
 import com.sullivan.common.ui_common.ex.makeGone
 import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.common.ui_common.navigator.LoginNavigator
@@ -20,7 +18,8 @@ import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemMypageBinding
 class MyPageListAdapter(
     private val itemList: List<MyPageItem>,
     private val loginNavigator: LoginNavigator,
-    private val activity: Activity
+    private val activity: Activity,
+    private val clearToken: () -> Unit
 ) :
     RecyclerView.Adapter<MyPageListAdapter.MyPageListViewHolder>() {
 
@@ -76,6 +75,7 @@ class MyPageListAdapter(
                 .setTitle(R.string.fragment_my_page_dialog_logout_title)
                 .setMessage(R.string.fragment_my_page_dialog_logout_body)
                 .setPositiveButton(R.string.fragment_my_page_dialog_logout_positive_btn_title) { dialog, _ ->
+                    clearToken()
                     loginNavigator.openLogin(activity)
                     dialog.dismiss()
                 }

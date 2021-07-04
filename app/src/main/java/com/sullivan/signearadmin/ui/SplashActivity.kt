@@ -9,6 +9,7 @@ import com.sullivan.common.ui_common.navigator.ReservationNavigator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,6 +45,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun checkAccessToken() {
+        Timber.d("checkAccessToken: ${viewModel.checkAccessToken()}")
         if (viewModel.checkAccessToken()) {
             viewModel.checkIsAccessTokenValid()
         } else {

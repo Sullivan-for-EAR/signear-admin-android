@@ -27,6 +27,11 @@ interface ApiService {
         @Body input: HashMap<String, Any>
     ): ResponseLogin
 
+    @POST("user/sign/create")
+    suspend fun createUser(
+        @Body input: HashMap<String, Any>
+    ): ResponseLogin
+
     @GET("sign/home")
     suspend fun checkAccessToken(): ResponseCheckAccessToken
 }

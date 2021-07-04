@@ -31,6 +31,7 @@ constructor(
         viewModelScope.launch {
             try {
                 repository.checkAccessToken().collect {
+                    Timber.d("$it")
                     _resultCheckAccessToken.value = it
                 }
             } catch (e: Exception) {
