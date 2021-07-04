@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.common.ui_common.base.BaseFragment
@@ -22,6 +23,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
 
     @Inject
     lateinit var sharedPreferenceManager: SharedPreferenceManager
+
+    private val viewModel: MyPageViewModel by viewModels()
 
     private lateinit var itemArray: Array<String>
     private lateinit var itemList: List<MyPageItem>
@@ -55,6 +58,17 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
         with(sharedPreferenceManager) {
             setAccessToken("")
             setUserId(0)
+        }
+    }
+
+    private fun observeViewModel() {
+        with(viewModel) {
+            userInfo.observe(viewLifecycleOwner, { userInfo ->
+                with(binding) {
+                    tvUserName.text = userInfo.email
+                    tvCenter.text = userInfo.phone
+                }
+            })
         }
     }
 }

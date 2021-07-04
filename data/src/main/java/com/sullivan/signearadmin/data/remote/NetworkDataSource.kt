@@ -2,6 +2,8 @@ package com.sullivan.signearadmin.data.remote
 
 import com.sullivan.common.core.DataState
 import com.sullivan.signear.data.model.ResponseLogin
+import com.sullivan.signear.data.model.UserProfile
+import com.sullivan.signearadmin.data.model.ReservationData
 import com.sullivan.signearadmin.data.model.ResponseCheckAccessToken
 import com.sullivan.signearadmin.data.model.ResponseCheckEmail
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -55,6 +57,26 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                             "address" to center
                         )
                     )
+                )
+            )
+            awaitClose { close() }
+        }
+
+    suspend fun getUserInfo(id: Int): Flow<DataState<UserProfile>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.getUserInfo(id)
+                )
+            )
+            awaitClose { close() }
+        }
+
+    suspend fun getReservationList(id: Int): Flow<DataState<List<ReservationData>>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.getReservationList(id)
                 )
             )
             awaitClose { close() }

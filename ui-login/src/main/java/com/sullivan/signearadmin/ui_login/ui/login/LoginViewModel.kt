@@ -37,6 +37,9 @@ constructor(
     private val _errorMsg = MutableLiveData<String>()
     val errorMsg: LiveData<String> = _errorMsg
 
+    private val _selectedCenter = MutableLiveData<String>()
+    val selectedCenter: LiveData<String> = _selectedCenter
+
     fun checkEmail(email: String) {
         viewModelScope.launch {
             repository.checkEmail(email).collect { result ->
@@ -83,4 +86,8 @@ constructor(
     }
 
     fun checkCurrentState() = _loginState.value
+
+    fun updateCenterInfo(center: String) {
+        _selectedCenter.value = center
+    }
 }

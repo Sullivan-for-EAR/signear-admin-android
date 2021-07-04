@@ -1,7 +1,9 @@
 package com.sullivan.signearadmin.data.remote
 
 import com.sullivan.signear.data.model.ResponseLogin
+import com.sullivan.signear.data.model.UserProfile
 import com.sullivan.signearadmin.data.model.RankingInfo
+import com.sullivan.signearadmin.data.model.ReservationData
 import com.sullivan.signearadmin.data.model.ResponseCheckAccessToken
 import com.sullivan.signearadmin.data.model.ResponseCheckEmail
 import retrofit2.http.Body
@@ -13,7 +15,7 @@ interface ApiService {
 
     companion object {
         //        const val BASE_URL = "https://static.wippy.io/c/nrise_data/"
-        const val BASE_URL = "http://192.168.200.105:8088/"
+        const val BASE_URL = "http://192.168.0.2:8088/"
     }
 
     @GET("nrise_data.json")
@@ -34,4 +36,10 @@ interface ApiService {
 
     @GET("sign/home")
     suspend fun checkAccessToken(): ResponseCheckAccessToken
+
+    @GET("user/customer/")
+    suspend fun getUserInfo(@Query("customer_id") id: Int): UserProfile
+
+    @GET("/reservation/customer/list")
+    suspend fun getReservationList(@Query("customer_id") id: Int): List<ReservationData>
 }

@@ -2,6 +2,8 @@ package com.sullivan.signearadmin.domain
 
 import com.sullivan.common.core.DataState
 import com.sullivan.signear.data.model.ResponseLogin
+import com.sullivan.signear.data.model.UserProfile
+import com.sullivan.signearadmin.data.model.ReservationData
 import com.sullivan.signearadmin.data.model.ResponseCheckAccessToken
 import com.sullivan.signearadmin.data.model.ResponseCheckEmail
 import com.sullivan.signearadmin.data.remote.NetworkDataSource
@@ -81,6 +83,45 @@ class SignearRepositoryImpl
                     when (it) {
                         is DataState.Success -> {
                             trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
+                    }
+                }
+        }
+
+    override suspend fun getUserInfo(id: Int): Flow<UserProfile> =
+        callbackFlow {
+            networkDataSource.getUserInfo(id)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
+                    }
+                }
+        }
+
+    override suspend fun getReservationList(id: Int): Flow<List<ReservationData>> =
+        callbackFlow {
+            networkDataSource.getReservationList(id)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
+                    when (it) {
+                        is DataState.Success -> {
+                            val list = it.data.toMutableList()
+                            list.forEach { item ->
+                                if (item.status == 8) {
+                                    list.remove(item)
+                                    list.add(item)
+                                }
+                            }
+                            trySend(list)
                         }
                         is DataState.Error -> {
                             Timber.e("DataState.Error")

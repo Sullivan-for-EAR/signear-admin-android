@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -26,15 +27,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by activityViewModels()
 
     private val validEmailRegex =
         Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
-
-    private val valPhoneRegex = Pattern.compile(
-        "^\\s*(010|011|012|013|014|015|016|017|018|019)(-|\\)|\\s)*(\\d{3,4})(-|\\s)*(\\d{4})\\s*$",
-        Pattern.CASE_INSENSITIVE
-    )
+    private lateinit var centerArray: Array<String>
 
     @Inject
     lateinit var reservationNavigator: ReservationNavigator
@@ -98,7 +95,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 btnJoin.setOnClickListener {
                     val email = etEmailInput.text.toString().trim()
                     val password = etPasswordInput.text.toString().trim()
-                    val center = etCenterInput.text.toString().trim()
+                    val center = etCenterInput.text.toString()
                     if (email.isNotEmpty() && password.isNotEmpty() && center.isNotEmpty()) {
                         etCenterInput.apply {
                             clearFocus()
@@ -108,9 +105,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     }
                 }
 
-//                btnFindAccount.setOnClickListener {
+                btnFindAccount.setOnClickListener {
 //                    viewModel.updateLoginState(LoginState.FindAccount)
-//                }
+                    requireContext().showDialog(
+                        getString(R.string.dialog_title),
+                        getString(R.string.future_develop),
+                        getString(R.string.future_develop_positive_btn_title)
+                    )
+                }
             }
 
             findAccountLayout.apply {
@@ -184,6 +186,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             errorMsg.observe(viewLifecycleOwner, { msg ->
                 makeToast(msg)
             })
+
+//            selectedCenter.observe(viewLifecycleOwner, { center ->
+//                with(binding.loginLayout) {
+//                    etCenterInput.makeGone()
+//                    tvCenterInput.makeVisible()
+//                    tvCenterInput.text = center
+//                    tvRule.setMargin(0,60,0,0)
+//                }
+//            })
         }
     }
 
@@ -240,32 +251,32 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         })
 
-        binding.loginLayout.etCenterInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                binding.loginLayout.apply {
-                    email = etEmailInput.text.toString().trim()
-                    password = etPasswordInput.text.toString().trim()
-                    center = etCenterInput.text.toString().trim()
-                    Timber.d("center: $center")
-                    if (center.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty()) {
-                        makeBtnEnable(btnJoin)
-                    } else {
-                        makeBtnDisable(btnJoin)
-                    }
-                }
-            }
-        })
+//        binding.loginLayout.etCenterInput.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(
+//                s: CharSequence?,
+//                start: Int,
+//                count: Int,
+//                after: Int
+//            ) {
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                binding.loginLayout.apply {
+//                    email = etEmailInput.text.toString().trim()
+//                    password = etPasswordInput.text.toString().trim()
+//                    center = etCenterInput.text.toString().trim()
+//                    Timber.d("center: $center")
+//                    if (center.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty()) {
+//                        makeBtnEnable(btnJoin)
+//                    } else {
+//                        makeBtnDisable(btnJoin)
+//                    }
+//                }
+//            }
+//        })
 
         binding.loginLayout.etPasswordInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -298,8 +309,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun checkEmailValidation(input: String) = validEmailRegex.matcher(input).matches()
 
-    private fun checkPhoneValidation(input: String) = valPhoneRegex.matcher(input).matches()
-
     private fun updateTitle(title: String) {
         binding.tvTitle.text = title
     }
@@ -319,6 +328,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             btnFindAccount.makeGone()
             tvRule.makeVisible()
             btnJoin.makeVisible()
+
+            centerArray = resources.getStringArray(R.array.center_array)
+
+            with(etCenterInput) {
+                setItems(centerArray.toList())
+                setOnItemSelectedListener { _, _, _, item ->
+                }
+            }
         }
     }
 
@@ -430,5 +447,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             )
         )
         btn.makeDisable()
+    }
+
+    companion object {
+        private const val ARGS_KEY = "center"
     }
 }

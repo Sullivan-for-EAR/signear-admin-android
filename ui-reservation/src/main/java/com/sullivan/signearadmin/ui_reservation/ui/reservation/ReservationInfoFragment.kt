@@ -38,7 +38,7 @@ class ReservationInfoFragment : BaseFragment<FragmentReservationInfoBinding>() {
         binding.apply {
             val id: Int? = arguments?.getInt(ARGS_KEY)
             if (id != null) {
-                currentReservationInfo = viewModel.findItemWithId(id)!!
+//                currentReservationInfo = viewModel.findItemWithId(id)!!
                 makeReservationView()
             }
         }

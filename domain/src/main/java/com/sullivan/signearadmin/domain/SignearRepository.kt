@@ -2,7 +2,9 @@ package com.sullivan.signearadmin.domain
 
 import com.sullivan.common.core.DataState
 import com.sullivan.signear.data.model.ResponseLogin
+import com.sullivan.signear.data.model.UserProfile
 import com.sullivan.signearadmin.data.model.RankingInfo
+import com.sullivan.signearadmin.data.model.ReservationData
 import com.sullivan.signearadmin.data.model.ResponseCheckAccessToken
 import com.sullivan.signearadmin.data.model.ResponseCheckEmail
 import kotlinx.coroutines.flow.Flow
@@ -15,4 +17,8 @@ interface SignearRepository {
     suspend fun checkAccessToken(): Flow<ResponseCheckAccessToken>
 
     suspend fun createUser(email: String, password: String, center: String): Flow<ResponseLogin>
+
+    suspend fun getUserInfo(id: Int): Flow<UserProfile>
+
+    suspend fun getReservationList(id: Int): Flow<List<ReservationData>>
 }

@@ -8,7 +8,7 @@
         android:id="@+id/loginStartFragment"
         android:name="com.sullivan.signearadmin.ui_login.ui.login.LoginStartFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_login_start" >
+        tools:layout="@layout/fragment_login_start">
         <action
             android:id="@+id/action_loginStartFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -17,18 +17,34 @@
         android:id="@+id/loginFragment"
         android:name="com.sullivan.signearadmin.ui_login.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_loginFinishFragment"
             app:destination="@id/loginFinishFragment" />
         <action
             android:id="@+id/action_loginFragment_to_loginStartFragment"
             app:destination="@id/loginStartFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_centerListDialogFragment"
+            app:destination="@id/centerListDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFinishFragment"
         android:name="com.sullivan.signearadmin.ui_login.ui.login.LoginFinishFragment"
         android:label="fragment_login_finish"
         tools:layout="@layout/fragment_login_finish" />
+    <dialog
+        android:id="@+id/centerListDialogFragment"
+        android:name="com.sullivan.signearadmin.ui_login.ui.login.CenterListDialogFragment"
+        android:label="CenterListDialogFragment">
+        <action
+            android:id="@+id/action_centerListDialogFragment_to_loginFragment"
+            app:destination="@id/loginFragment">
+            <argument
+                android:name="center"
+                android:defaultValue="강남구"
+                app:argType="string" />
+        </action>
+    </dialog>
 
 </navigation>

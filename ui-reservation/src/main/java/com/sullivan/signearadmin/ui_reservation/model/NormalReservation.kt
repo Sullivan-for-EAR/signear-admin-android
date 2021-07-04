@@ -9,15 +9,15 @@ data class NormalReservation(
     val endTime: String,
     val center: String,
     val place: String,
+    val status: Int,
     val purpose: String,
     val isContactless: Boolean = false,
+    val userInfo: User,
     var currentState: ReservationState = ReservationState.NotRead,
-    val userInfo: User = User(),
     var reject_cancel_reason: String = "",
 ) : ReservationType {
     data class User(
-        val id: Int = 0,
-        val name: String = "",
-        val phone: String = ""
+        val id: Int,
+        val phone: String
     )
 }

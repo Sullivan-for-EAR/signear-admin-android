@@ -50,7 +50,7 @@ class ReservationInfoActivity : AppCompatActivity() {
 
     private fun setupView() {
         val id = intent.getIntExtra(ID, 0)
-        currentReservationInfo = viewModel.findItemWithId(id)!!
+//        currentReservationInfo = viewModel.findItemWithId(id)!!
         intent.getStringExtra(FROM)?.let { makeReservationView(it) }
     }
 
