@@ -43,9 +43,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 adapter = reservationDelegateAdapter
             }
 
-            tvTitle.setOnClickListener {
-                findNavController().navigate(R.id.action_global_reservationInfoFragment)
-            }
+//            tvTitle.setOnClickListener {
+//                findNavController().navigate(R.id.action_global_reservationInfoFragment)
+//            }
         }
     }
 

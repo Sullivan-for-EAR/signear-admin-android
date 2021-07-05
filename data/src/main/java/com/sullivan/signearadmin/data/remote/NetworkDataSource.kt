@@ -78,7 +78,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             awaitClose { close() }
         }
 
-    suspend fun getReservationDetailInfo(id: Int): Flow<DataState<ReservationDetailInfo>> =
+    suspend fun getReservationDetailInfo(id: Int): Flow<DataState<ReservationData>> =
         callbackFlow {
             trySend(
                 DataState.Success(
