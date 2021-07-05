@@ -37,4 +37,7 @@ interface ApiService {
 
     @GET("reservation/sign/")
     suspend fun getReservationDetailInfo(@Query("reservation_id") id: Int): ReservationDetailInfo
+
+    @GET("/reservation/sign/myList")
+    suspend fun getScheduleList(@Query("sign_id") id: Int): List<ReservationData>
 }

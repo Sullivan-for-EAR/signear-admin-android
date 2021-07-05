@@ -141,4 +141,27 @@ class SignearRepositoryImpl
                     }
                 }
         }
+
+    override suspend fun getScheduleList(id: Int): Flow<List<ReservationData>> =
+        callbackFlow {
+            networkDataSource.getScheduleList(id)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
+                    when (it) {
+                        is DataState.Success -> {
+                            val list = it.data.toMutableList()
+                            list.forEach { item ->
+                                if (item.status == 8) {
+                                    list.remove(item)
+                                    list.add(item)
+                                }
+                            }
+                            trySend(list)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
+                    }
+                }
+        }
 }

@@ -1,5 +1,6 @@
 package com.sullivan.signearadmin.domain
 
+import com.sullivan.common.core.DataState
 import com.sullivan.signearadmin.data.model.*
 import kotlinx.coroutines.flow.Flow
 
@@ -17,4 +18,6 @@ interface SignearRepository {
     suspend fun getReservationList(id: Int): Flow<List<ReservationData>>
 
     suspend fun getReservationDetailInfo(id: Int): Flow<ReservationDetailInfo>
+
+    suspend fun getScheduleList(id: Int): Flow<List<ReservationData>>
 }

@@ -25,6 +25,12 @@ class ScheduleListAdapter(private val scheduleList: MutableList<NormalReservatio
     }
 
     override fun getItemCount() = scheduleList.size
+
+    fun addAll(newList: MutableList<NormalReservation>) {
+        scheduleList.clear()
+        scheduleList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }
 
 class ScheduleListViewHolder(private val binding: ItemScheduleBinding) :
