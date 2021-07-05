@@ -39,7 +39,7 @@ class CenterListDialogFragment : BottomSheetDialogFragment() {
                 setItems(centerArray.toList())
                 setOnItemSelectedListener { _, _, _, item ->
                     selectedCenter = item.toString()
-                    viewModel.updateCenterInfo(selectedCenter)
+//                    viewModel.updateCenterInfo(selectedCenter)
                 }
             }
         }

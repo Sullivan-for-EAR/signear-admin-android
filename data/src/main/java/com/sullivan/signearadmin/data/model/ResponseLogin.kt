@@ -1,4 +1,4 @@
-package com.sullivan.signear.data.model
+package com.sullivan.signearadmin.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -10,10 +10,10 @@ data class ResponseLogin(
 )
 
 data class UserProfile(
-    @SerializedName("customerID")
+    @SerializedName("signID")
     val id: Int,
     @SerializedName("email")
     val email: String,
-    @SerializedName("phone")
-    val phone: String
+    @SerializedName("address")
+    val address: String
 )

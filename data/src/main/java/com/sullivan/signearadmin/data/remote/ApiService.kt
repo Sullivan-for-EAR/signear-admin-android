@@ -1,11 +1,6 @@
 package com.sullivan.signearadmin.data.remote
 
-import com.sullivan.signear.data.model.ResponseLogin
-import com.sullivan.signear.data.model.UserProfile
-import com.sullivan.signearadmin.data.model.RankingInfo
-import com.sullivan.signearadmin.data.model.ReservationData
-import com.sullivan.signearadmin.data.model.ResponseCheckAccessToken
-import com.sullivan.signearadmin.data.model.ResponseCheckEmail
+import com.sullivan.signearadmin.data.model.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -14,12 +9,9 @@ import retrofit2.http.Query
 interface ApiService {
 
     companion object {
-        //        const val BASE_URL = "https://static.wippy.io/c/nrise_data/"
-        const val BASE_URL = "http://192.168.0.2:8088/"
+        const val BASE_URL = "http://192.168.1.9:8088/"
+//        const val BASE_URL = "http://192.168.0.2:8088/"
     }
-
-    @GET("nrise_data.json")
-    suspend fun fetchRankInfo(): RankingInfo
 
     @GET("sign/check")
     suspend fun checkEmail(@Query("email") email: String): ResponseCheckEmail
@@ -37,9 +29,9 @@ interface ApiService {
     @GET("sign/home")
     suspend fun checkAccessToken(): ResponseCheckAccessToken
 
-    @GET("user/customer/")
-    suspend fun getUserInfo(@Query("customer_id") id: Int): UserProfile
+    @GET("user/sign/")
+    suspend fun getUserInfo(@Query("sign_id") id: Int): UserProfile
 
-    @GET("/reservation/customer/list")
-    suspend fun getReservationList(@Query("customer_id") id: Int): List<ReservationData>
+    @GET("/reservation/sign/list")
+    suspend fun getReservationList(@Query("sign_id") id: Int): List<ReservationData>
 }

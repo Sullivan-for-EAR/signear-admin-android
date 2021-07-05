@@ -2,15 +2,12 @@ package com.sullivan.signearadmin.ui_reservation.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
-import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity
 import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity.Companion.newIntent
-import com.sullivan.signearadmin.ui_reservation.ui.ui.home.HomeFragmentDirections
 
 class NormalReservationAdapterDelegate : AdapterDelegate<List<ReservationType>>() {
 

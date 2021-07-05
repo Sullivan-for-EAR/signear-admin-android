@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.sullivan.signearadmin.ui_reservation.ui.ui.home.HomeFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.home.HomeFragment"
         android:label="@string/bottom_nav_title_home"
         tools:layout="@layout/home_fragment">
         <action

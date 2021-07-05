@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sullivan.common.ui_common.utils.SharedPreferenceManager
-import com.sullivan.signear.data.model.UserProfile
+import com.sullivan.signearadmin.data.model.UserProfile
 import com.sullivan.signearadmin.domain.SignearRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect

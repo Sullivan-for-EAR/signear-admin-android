@@ -2,11 +2,10 @@ package com.sullivan.signearadmin.ui_reservation.ui.home
 
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
-import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationSharedViewModel
 
 class ReservationDelegateAdapter(
     reservationList: MutableList<ReservationType>,
-    sharedViewModel: ReservationSharedViewModel,
+    sharedViewModel: HomeViewModel,
 ) :
     ListDelegationAdapter<List<ReservationType>>() {
 
@@ -22,5 +21,10 @@ class ReservationDelegateAdapter(
         setItems(reservationList)
     }
 
-
+    fun addAll(newReservationList: MutableList<ReservationType>) {
+        reservationItem.clear()
+        reservationItem.addAll(newReservationList)
+        setItems(reservationItem)
+        notifyDataSetChanged()
+    }
 }

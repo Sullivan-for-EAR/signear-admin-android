@@ -24,6 +24,10 @@ constructor(
     private val _myReservationList = MutableLiveData<List<ReservationType>>()
     val myReservationList: LiveData<List<ReservationType>> = _myReservationList
 
+    init {
+        getReservationList()
+    }
+
     fun getReservationList() {
         val id = sharedPreferenceManager.getUserId()
         viewModelScope.launch {

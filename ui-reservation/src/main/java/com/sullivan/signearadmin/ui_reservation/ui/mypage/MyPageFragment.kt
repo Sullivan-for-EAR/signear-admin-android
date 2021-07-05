@@ -34,7 +34,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentMyPageBinding.inflate(layoutInflater)
+        observeViewModel()
+
         return binding.root
     }
 
@@ -45,7 +48,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
 
         binding.apply {
 
-            myPageListAdapter = MyPageListAdapter(itemList, loginNavigator, requireActivity(), this@MyPageFragment::clearAccessToken)
+            myPageListAdapter = MyPageListAdapter(
+                itemList,
+                loginNavigator,
+                requireActivity(),
+                this@MyPageFragment::clearAccessToken
+            )
             rvMypage.apply {
                 adapter = myPageListAdapter
                 setHasFixedSize(true)
@@ -66,7 +74,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
             userInfo.observe(viewLifecycleOwner, { userInfo ->
                 with(binding) {
                     tvUserName.text = userInfo.email
-                    tvCenter.text = userInfo.phone
+                    (userInfo.address + "수어센터").also { tvCenter.text = it }
                 }
             })
         }

@@ -1,12 +1,6 @@
 package com.sullivan.signearadmin.domain
 
-import com.sullivan.common.core.DataState
-import com.sullivan.signear.data.model.ResponseLogin
-import com.sullivan.signear.data.model.UserProfile
-import com.sullivan.signearadmin.data.model.RankingInfo
-import com.sullivan.signearadmin.data.model.ReservationData
-import com.sullivan.signearadmin.data.model.ResponseCheckAccessToken
-import com.sullivan.signearadmin.data.model.ResponseCheckEmail
+import com.sullivan.signearadmin.data.model.*
 import kotlinx.coroutines.flow.Flow
 
 interface SignearRepository {
