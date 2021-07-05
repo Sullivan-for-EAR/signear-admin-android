@@ -9,8 +9,8 @@ import retrofit2.http.Query
 interface ApiService {
 
     companion object {
-        const val BASE_URL = "http://192.168.1.9:8088/"
-//        const val BASE_URL = "http://192.168.0.2:8088/"
+//        const val BASE_URL = "http://192.168.1.9:8088/"
+        const val BASE_URL = "http://192.168.0.2:8088/"
     }
 
     @GET("sign/check")
