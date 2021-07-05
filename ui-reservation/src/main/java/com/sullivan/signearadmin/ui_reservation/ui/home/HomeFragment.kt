@@ -10,6 +10,7 @@ import com.sullivan.common.ui_common.base.BaseFragment
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.HomeFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeFragmentBinding>() {
@@ -51,8 +52,10 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
     private fun observeViewModel() {
         with(viewModel) {
             myReservationList.observe(viewLifecycleOwner, { myReservationList ->
-                if (myReservationList.isNullOrEmpty()) {
-                    reservationDelegateAdapter.addAll(myReservationList.toMutableList())
+                if (!myReservationList.isNullOrEmpty()) {
+                    reservationDelegateAdapter.addAll(
+                        myReservationList.asReversed().toMutableList()
+                    )
                 }
             })
         }

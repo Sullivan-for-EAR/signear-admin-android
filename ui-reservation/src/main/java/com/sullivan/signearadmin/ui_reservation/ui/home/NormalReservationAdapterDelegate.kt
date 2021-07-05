@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
+import com.sullivan.common.ui_common.ex.convertDate
+import com.sullivan.common.ui_common.ex.getTimeInfo
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemReservationBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.ReservationType
@@ -37,9 +39,9 @@ class NormalReservationAdapterDelegate : AdapterDelegate<List<ReservationType>>(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NormalReservation) {
             binding.apply {
-                tvDate.text = item.date
-                tvReservationStartTime.text = item.startTime
-                tvReservationEndTime.text = item.endTime
+                tvDate.text = item.date.convertDate()
+                tvReservationStartTime.text = item.startTime.getTimeInfo()
+                tvReservationEndTime.text = item.endTime.getTimeInfo()
                 tvPlace.text = item.place
                 tvTranslation.text = if (!item.isContactless) "수어 통역" else "화상 통역"
                 btnDetail.setOnClickListener {
