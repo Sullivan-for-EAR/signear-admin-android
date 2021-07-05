@@ -12,6 +12,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import com.sullivan.common.ui_common.ex.*
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityReservationInfoBinding
+import com.sullivan.signearadmin.data.model.ReservationDetailInfo
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +22,9 @@ import timber.log.Timber
 class ReservationInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReservationInfoBinding
-    private lateinit var currentReservationInfo: NormalReservation
+    private lateinit var currentReservationInfo: ReservationDetailInfo
     private val viewModel: ReservationSharedViewModel by viewModels()
+    private var from = ""
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -46,22 +48,32 @@ class ReservationInfoActivity : AppCompatActivity() {
         binding = ActivityReservationInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupView()
+        observeViewModel()
     }
 
     private fun setupView() {
         val id = intent.getIntExtra(ID, 0)
-//        currentReservationInfo = viewModel.findItemWithId(id)!!
-        intent.getStringExtra(FROM)?.let { makeReservationView(it) }
+        viewModel.fetchReservationDetail(id)
+        intent.getStringExtra(FROM)?.let { from = it }
+    }
+
+    private fun observeViewModel() {
+        viewModel.reservationDetailInfo.observe(this, { detailInfo ->
+            detailInfo.let {
+                currentReservationInfo = detailInfo
+                makeReservationView(from)
+            }
+        })
     }
 
     private fun makeReservationView(from: String) {
         with(binding) {
             tvReservationPlace.text = currentReservationInfo.place
-            tvDate.text = currentReservationInfo.date
-            tvStartTime.text = currentReservationInfo.startTime
-            tvEndTime.text = currentReservationInfo.endTime
+            tvDate.text = currentReservationInfo.date.convertDate()
+            tvStartTime.text = currentReservationInfo.startTime.getTimeInfo()
+            tvEndTime.text = currentReservationInfo.endTime.getTimeInfo()
 
-            if (!currentReservationInfo.isContactless) {
+            if (currentReservationInfo.method == 1) {
                 tvReservationTranslation.text =
                     getString(R.string.fragment_reservation_tv_sign_translation_title)
                 tvTranslation.text =
@@ -72,7 +84,7 @@ class ReservationInfoActivity : AppCompatActivity() {
                 tvTranslation.text = "(${getString(R.string.fragment_reservation_tv_online_title)})"
             }
 
-            tvReservationPurpose.text = currentReservationInfo.purpose
+            tvReservationPurpose.text = currentReservationInfo.request
 
             btnBack.setOnClickListener {
                 finish()

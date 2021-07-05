@@ -92,7 +92,7 @@
             android:layout_marginHorizontal="1dp"
             android:text="~"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/tv_start_time"
             app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/tv_time"
             app:layout_constraintTop_toBottomOf="@+id/tv_date"
             tools:text="오전 00시 00분" />
@@ -255,9 +255,9 @@
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/white"
-            android:layout_marginEnd="10dp"
             android:text="@string/fragment_reservation_info_btn_reject_title"
             android:textColor="@color/btn_emergency_bg_color"
             android:textSize="20sp"

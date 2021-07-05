@@ -125,4 +125,20 @@ class SignearRepositoryImpl
                     }
                 }
         }
+
+    override suspend fun getReservationDetailInfo(id: Int): Flow<ReservationDetailInfo> =
+        callbackFlow {
+            networkDataSource.getReservationDetailInfo(id)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
+                    }
+                }
+        }
 }

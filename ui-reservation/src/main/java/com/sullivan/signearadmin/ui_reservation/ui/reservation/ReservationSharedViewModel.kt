@@ -3,6 +3,8 @@ package com.sullivan.signearadmin.ui_reservation.ui.reservation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sullivan.signearadmin.data.model.ReservationDetailInfo
 import com.sullivan.signearadmin.domain.SignearRepository
 import com.sullivan.signearadmin.ui_reservation.model.EmergencyReservation
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
@@ -13,6 +15,8 @@ import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -20,6 +24,9 @@ import javax.inject.Inject
 @HiltViewModel
 class ReservationSharedViewModel @Inject
 constructor(private val repository: SignearRepository) : ViewModel() {
+
+    private val _reservationDetailInfo = MutableLiveData<ReservationDetailInfo>()
+    val reservationDetailInfo: LiveData<ReservationDetailInfo> = _reservationDetailInfo
 
     private val _reservationDate = MutableStateFlow<Calendar>(Calendar.getInstance())
     val reservationDate: StateFlow<Calendar> = _reservationDate
@@ -190,21 +197,15 @@ constructor(private val repository: SignearRepository) : ViewModel() {
         reservationPurpose.value = ""
     }
 
-    fun updateReservationList(list: List<ReservationType>) {
-        reservationList = list
-    }
-
-//    fun findItemWithId(id: Int) = prevReservationList.find {
-//        it is NormalReservation && it.id == id
-//    } as NormalReservation?
-//
-//    fun updatePrevReservationList(list: MutableList<ReservationType>) {
-//        prevReservationList = list
-//    }
-
-//    fun findItemWithIdInPrevList(id: Int) = prevReservationList.find { it.id == id }
-
     fun updateRequestCallPermission(status: Boolean) {
         _requestCallPermission.value = status
+    }
+
+    fun fetchReservationDetail(id: Int) {
+        viewModelScope.launch {
+            repository.getReservationDetailInfo(id).collect { response ->
+                _reservationDetailInfo.value = response
+            }
+        }
     }
 }

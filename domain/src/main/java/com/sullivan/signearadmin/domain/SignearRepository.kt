@@ -15,4 +15,6 @@ interface SignearRepository {
     suspend fun getUserInfo(id: Int): Flow<UserProfile>
 
     suspend fun getReservationList(id: Int): Flow<List<ReservationData>>
+
+    suspend fun getReservationDetailInfo(id: Int): Flow<ReservationDetailInfo>
 }
