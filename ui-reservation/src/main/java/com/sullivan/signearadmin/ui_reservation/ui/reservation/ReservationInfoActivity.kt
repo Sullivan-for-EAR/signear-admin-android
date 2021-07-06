@@ -3,11 +3,9 @@ package com.sullivan.signearadmin.ui_reservation.ui.reservation
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
@@ -15,12 +13,7 @@ import com.sullivan.common.ui_common.ex.*
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityReservationInfoBinding
 import com.sullivan.signearadmin.data.model.ReservationData
-import com.sullivan.signearadmin.data.model.ReservationDetailInfo
-import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
-import com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
-import java.lang.Exception
 
 @AndroidEntryPoint
 class ReservationInfoActivity : AppCompatActivity() {
@@ -99,10 +92,18 @@ class ReservationInfoActivity : AppCompatActivity() {
                     getString(R.string.fragment_reservation_tv_sign_translation_title)
                 tvTranslation.text =
                     "(${getString(R.string.fragment_reservation_tv_contact_title)})"
+
+                ivPlace.makeVisible()
+                tvPlace.makeVisible()
+                tvReservationPlace.makeVisible()
             } else {
                 tvReservationTranslation.text =
                     getString(R.string.fragment_reservation_tv_online_translation_title)
                 tvTranslation.text = "(${getString(R.string.fragment_reservation_tv_online_title)})"
+
+                ivPlace.makeGone()
+                tvPlace.makeGone()
+                tvReservationPlace.makeGone()
             }
 
             tvReservationPurpose.text = currentReservationInfo.request
@@ -124,6 +125,7 @@ class ReservationInfoActivity : AppCompatActivity() {
                     }
                     btnReject.makeGone()
                     btnApprove.makeGone()
+                    btnContact.makeVisible()
                 }
 
                 "reservationList" -> {
@@ -137,6 +139,7 @@ class ReservationInfoActivity : AppCompatActivity() {
                     }
                     btnReject.makeVisible()
                     btnApprove.makeVisible()
+                    btnContact.makeVisible()
                 }
 
                 else -> {

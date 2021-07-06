@@ -37,7 +37,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name="com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity"
+            android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.RealTimeReservationActivity"
             android:label="RealTimeReservationActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

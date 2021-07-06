@@ -3,7 +3,7 @@ package com.sullivan.signearadmin.ui_reservation.navigator
 import android.app.Activity
 import com.sullivan.common.ui_common.ex.launchActivity
 import com.sullivan.common.ui_common.navigator.ReservationNavigator
-import com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity
+import com.sullivan.signearadmin.ui_reservation.ui.reservation.RealTimeReservationActivity
 import com.sullivan.signearadmin.ui_reservation.ui.ReservationActivity
 import javax.inject.Inject
 

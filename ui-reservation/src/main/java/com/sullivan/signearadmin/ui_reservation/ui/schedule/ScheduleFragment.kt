@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sullivan.common.ui_common.base.BaseFragment
+import com.sullivan.common.ui_common.ex.makeGone
+import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenearadmin.ui_reservation.databinding.FragmentScheduleBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +54,17 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
     private fun observeViewModel() {
         viewModel.scheduleList.observe(viewLifecycleOwner, { scheduleList ->
             if (scheduleList.isNotEmpty()) {
+                with(binding) {
+                    rvScheduleList.makeVisible()
+                    emptyReservationLayout.rootView.makeGone()
+                }
+
                 scheduleListAdapter.addAll(scheduleList.asReversed().toMutableList())
+            } else {
+                with(binding) {
+                    rvScheduleList.makeGone()
+                    emptyReservationLayout.rootView.makeVisible()
+                }
             }
         })
     }

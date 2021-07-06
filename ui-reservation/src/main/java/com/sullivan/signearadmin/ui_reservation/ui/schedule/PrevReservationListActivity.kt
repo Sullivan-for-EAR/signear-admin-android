@@ -5,8 +5,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sullivan.common.ui_common.ex.makeGone
+import com.sullivan.common.ui_common.ex.makeVisible
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityPreviousReservationBinding
-import com.sullivan.signearadmin.ui_reservation.ui.mypage.PreviousReservationListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,13 +24,12 @@ class PrevReservationListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        observeViewModel()
     }
 
     private fun setupView() {
         reservationListAdapter =
-            PreviousReservationListAdapter(
-                viewModel.fetchPrevList()
-            )
+            PreviousReservationListAdapter(mutableListOf())
 
         with(binding) {
             rvReservation.apply {
@@ -42,5 +42,24 @@ class PrevReservationListActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun observeViewModel() {
+        viewModel.myPrevReservationList.observe(this, { prevReservationList ->
+            if (prevReservationList.isNotEmpty()) {
+                with(binding) {
+                    rvReservation.makeVisible()
+                    tvEmptyList.makeGone()
+                    ivPrevReservation.makeGone()
+                }
+                reservationListAdapter.addAll(prevReservationList.asReversed().toMutableList())
+            } else {
+                with(binding) {
+                    rvReservation.makeGone()
+                    tvEmptyList.makeVisible()
+                    ivPrevReservation.makeVisible()
+                }
+            }
+        })
     }
 }

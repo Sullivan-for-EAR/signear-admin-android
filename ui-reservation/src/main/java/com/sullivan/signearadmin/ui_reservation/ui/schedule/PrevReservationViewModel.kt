@@ -23,10 +23,14 @@ constructor(
     private val sharedPreferenceManager: SharedPreferenceManager
 ) : ViewModel() {
 
-    private val _myPrevReservationList = MutableLiveData<List<ReservationType>>()
-    val myPrevReservationList: LiveData<List<ReservationType>> = _myPrevReservationList
+    private val _myPrevReservationList = MutableLiveData<List<NormalReservation>>()
+    val myPrevReservationList: LiveData<List<NormalReservation>> = _myPrevReservationList
 
-    fun getPrevReservationList() {
+    init {
+        getPrevReservationList()
+    }
+
+    private fun getPrevReservationList() {
         val id = sharedPreferenceManager.getUserId()
         viewModelScope.launch {
             repository.getReservationList(id).collect { response ->
@@ -39,8 +43,8 @@ constructor(
         }
     }
 
-    private fun convertData(reservationList: List<ReservationData>): List<ReservationType> {
-        val myList = mutableListOf<ReservationType>()
+    private fun convertData(reservationList: List<ReservationData>): List<NormalReservation> {
+        val myList = mutableListOf<NormalReservation>()
 
         reservationList.forEach { data ->
             myList.add(
