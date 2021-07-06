@@ -49,4 +49,7 @@ interface ApiService {
         @Path("reservation_id") reservationId: Int,
         @Body info: HashMap<String, Any>
     ): ReservationData
+
+    @GET("management/sign/list")
+    suspend fun getPrevReservationList(@Query("sign_id") id: Int): List<ReservationData>
 }

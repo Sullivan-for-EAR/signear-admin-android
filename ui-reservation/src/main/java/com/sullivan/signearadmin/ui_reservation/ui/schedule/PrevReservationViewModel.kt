@@ -3,71 +3,61 @@ package com.sullivan.signearadmin.ui_reservation.ui.schedule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sullivan.common.ui_common.utils.SharedPreferenceManager
+import com.sullivan.signearadmin.data.model.ReservationData
 import com.sullivan.signearadmin.domain.SignearRepository
+import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.model.Reservation
+import com.sullivan.signearadmin.ui_reservation.model.ReservationType
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PrevReservationViewModel @Inject
-constructor(private val repository: SignearRepository) : ViewModel() {
+constructor(
+    private val repository: SignearRepository,
+    private val sharedPreferenceManager: SharedPreferenceManager
+) : ViewModel() {
 
-    private var prevReservations = mutableListOf(
-//        Reservation(
-//            1,
-//            "4월 30일(금)",
-//            "오전 10시",
-//            "오전 12시",
-//            "강남구",
-//            "서초좋은병원서초좋은병원서초좋은병원서초좋은병원",
-//            "",
-//            false,
-//            ReservationState.Cancel("reason")
-//        ),
-        Reservation(
-            2,
-            "4월 30일(금)",
-            "오전 8시",
-            "오전 10시",
-            "강남구", "중랑좋은병원", "",
-            false,
-            ReservationState.Cancel("reason"),
-            "reason",
-            true
-        ),
-        Reservation(
-            3,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구", "서초좋은병원", "",
-            false,
-            ReservationState.Reject("reason")
-        ),
-        Reservation(
-            4,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원",
-            "",
-            false,
-            ReservationState.Served
-        ),
-        Reservation(
-            5,
-            "4월 30일(금)",
-            "오전 10시",
-            "오전 12시",
-            "강남구",
-            "서초좋은병원",
-            "",
-            false,
-            ReservationState.Cancel("reason")
-        ),
-    )
+    private val _myPrevReservationList = MutableLiveData<List<ReservationType>>()
+    val myPrevReservationList: LiveData<List<ReservationType>> = _myPrevReservationList
 
-    fun fetchPrevList() = prevReservations
+    fun getPrevReservationList() {
+        val id = sharedPreferenceManager.getUserId()
+        viewModelScope.launch {
+            repository.getReservationList(id).collect { response ->
+                if (response.isNotEmpty()) {
+                    _myPrevReservationList.value = convertData(response)
+                } else {
+                    _myPrevReservationList.value = emptyList()
+                }
+            }
+        }
+    }
+
+    private fun convertData(reservationList: List<ReservationData>): List<ReservationType> {
+        val myList = mutableListOf<ReservationType>()
+
+        reservationList.forEach { data ->
+            myList.add(
+                NormalReservation(
+                    data.id,
+                    data.date,
+                    data.startTime,
+                    data.endTime,
+                    data.center,
+                    data.place,
+                    data.status,
+                    data.request,
+                    data.method != 1,
+                    NormalReservation.User(data.customerUser.id, data.customerUser.phone)
+                )
+            )
+        }
+        return myList
+    }
 }

@@ -28,4 +28,6 @@ interface SignearRepository {
         id: Int,
         rejectReason: String
     ): Flow<ReservationData>
+
+    suspend fun getPrevReservationList(id: Int): Flow<List<ReservationData>>
 }
