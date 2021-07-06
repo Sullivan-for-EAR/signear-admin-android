@@ -10,7 +10,6 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.sullivan.common.ui_common.base.BaseFragment
@@ -20,7 +19,6 @@ import com.sullivan.signearadmin.ui_login.R
 import com.sullivan.signearadmin.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import timber.log.Timber
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -48,6 +46,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupObserve()
         setTextWatcher()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.updateLoginState(LoginState.Init)
     }
 
     override fun setupView() {
@@ -170,8 +173,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             resultLogin.observe(viewLifecycleOwner, { response ->
                 if (response.accessToken.isNotEmpty()) {
                     viewModel.updateLoginState(LoginState.Success)
-                } else {
-                    makeToast("로그인 실패: 비밀번호를 다시 입력해주세요!")
                 }
             })
 
@@ -186,15 +187,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             errorMsg.observe(viewLifecycleOwner, { msg ->
                 makeToast(msg)
             })
-
-//            selectedCenter.observe(viewLifecycleOwner, { center ->
-//                with(binding.loginLayout) {
-//                    etCenterInput.makeGone()
-//                    tvCenterInput.makeVisible()
-//                    tvCenterInput.text = center
-//                    tvRule.setMargin(0,60,0,0)
-//                }
-//            })
         }
     }
 
@@ -250,33 +242,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             }
         })
-
-//        binding.loginLayout.etCenterInput.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(
-//                s: CharSequence?,
-//                start: Int,
-//                count: Int,
-//                after: Int
-//            ) {
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//            }
-//
-//            override fun afterTextChanged(s: Editable?) {
-//                binding.loginLayout.apply {
-//                    email = etEmailInput.text.toString().trim()
-//                    password = etPasswordInput.text.toString().trim()
-//                    center = etCenterInput.text.toString().trim()
-//                    Timber.d("center: $center")
-//                    if (center.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty()) {
-//                        makeBtnEnable(btnJoin)
-//                    } else {
-//                        makeBtnDisable(btnJoin)
-//                    }
-//                }
-//            }
-//        })
 
         binding.loginLayout.etPasswordInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -341,13 +306,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun showPasswordInputView() {
         binding.loginLayout.apply {
+            ivPassword.makeVisible()
+            etPasswordInput.makeVisible()
+
             etEmailInput.clearFocus()
             etPasswordInput.apply {
                 requestFocus()
                 showKeyboard()
             }
-            ivPassword.makeVisible()
-            etPasswordInput.makeVisible()
+
         }
     }
 
@@ -447,9 +414,5 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             )
         )
         btn.makeDisable()
-    }
-
-    companion object {
-        private const val ARGS_KEY = "center"
     }
 }

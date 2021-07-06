@@ -37,9 +37,6 @@ constructor(
     private val _errorMsg = MutableLiveData<String>()
     val errorMsg: LiveData<String> = _errorMsg
 
-    private val _selectedCenter = MutableLiveData<String>()
-    val selectedCenter: LiveData<String> = _selectedCenter
-
     fun checkEmail(email: String) {
         viewModelScope.launch {
             repository.checkEmail(email).collect { result ->
@@ -52,7 +49,7 @@ constructor(
         viewModelScope.launch {
             repository.login(email, password)
                 .catch { exception ->
-                    _errorMsg.value = "로그인에 실패했습니다."
+                    _errorMsg.value = "로그인 실패: 비밀번호를 다시 입력해주세요!"
                     Timber.e(exception)
                 }
                 .collect { response ->
@@ -86,8 +83,4 @@ constructor(
     }
 
     fun checkCurrentState() = _loginState.value
-
-    fun updateCenterInfo(center: String) {
-        _selectedCenter.value = center
-    }
 }

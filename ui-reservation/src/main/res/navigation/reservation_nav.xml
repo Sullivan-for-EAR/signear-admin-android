@@ -11,16 +11,6 @@
         android:label="home_fragment"
         tools:layout="@layout/home_fragment"/>
     <fragment
-        android:id="@+id/reservationInfoFragment"
-        android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoFragment"
-        android:label="fragment_reservation_info"
-        tools:layout="@layout/fragment_reservation_info">
-        <action
-            android:id="@+id/action_reservationInfoFragment_pop"
-            app:popUpTo="@id/reservationInfoFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
         android:id="@+id/myPageFragment"
         android:name="com.sullivan.signearadmin.ui_reservation.ui.mypage.MyPageFragment"
         android:label="fragment_my_page"
@@ -30,22 +20,19 @@
             app:popUpTo="@id/myPageFragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <action
-        android:id="@+id/action_global_reservationInfoFragment"
-        app:destination="@id/reservationInfoFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right">
-        <argument
-            android:name="itemId"
-            android:defaultValue="0"
-            app:argType="integer" />
-    </action>
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.sullivan.signearadmin.ui_reservation.ui.schedule.ScheduleFragment"
         android:label="fragment_schedule"
         tools:layout="@layout/fragment_schedule" />
+    <dialog
+        android:id="@+id/contactCustomerDialogFragment"
+        android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.ContactCustomerDialogFragment"
+        android:label="ContactCustomerDialogFragment" >
+        <argument
+            android:name="phone"
+            android:defaultValue=""
+            app:argType="string" />
+    </dialog>
 
 </navigation>

@@ -3,26 +3,30 @@ package com.sullivan.signearadmin.ui_reservation.ui.reservation
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.content.res.AppCompatResources
 import com.sullivan.common.ui_common.ex.*
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityReservationInfoBinding
+import com.sullivan.signearadmin.data.model.ReservationData
 import com.sullivan.signearadmin.data.model.ReservationDetailInfo
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
 import com.sullivan.signearadmin.ui_reservation.ui.RealTimeReservationActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.lang.Exception
 
 @AndroidEntryPoint
 class ReservationInfoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityReservationInfoBinding
-    private lateinit var currentReservationInfo: ReservationDetailInfo
+    private lateinit var currentReservationInfo: ReservationData
     private val viewModel: ReservationSharedViewModel by viewModels()
     private var from = ""
 
@@ -58,12 +62,15 @@ class ReservationInfoActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.reservationDetailInfo.observe(this, { detailInfo ->
-            detailInfo.let {
-                currentReservationInfo = detailInfo
-                makeReservationView(from)
-            }
-        })
+        with(viewModel) {
+            reservationDetailInfo.observe(this@ReservationInfoActivity, { detailInfo ->
+                detailInfo.let {
+                    currentReservationInfo = detailInfo
+                    viewModel.updateCustomerInfo(detailInfo.customerUser)
+                    makeReservationView(from)
+                }
+            })
+        }
     }
 
     private fun makeReservationView(from: String) {
