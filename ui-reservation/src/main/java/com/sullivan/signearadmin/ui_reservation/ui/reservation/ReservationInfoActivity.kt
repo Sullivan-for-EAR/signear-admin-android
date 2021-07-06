@@ -70,6 +70,20 @@ class ReservationInfoActivity : AppCompatActivity() {
                     makeReservationView(from)
                 }
             })
+
+            responseConfirmReservation.observe(this@ReservationInfoActivity, { response ->
+                if (response != null) {
+                    makeToast("예약 승인이 완료되었습니다.")
+                    reorderToActivity<RealTimeReservationActivity>()
+                }
+            })
+
+            responseRejectReservation.observe(this@ReservationInfoActivity, { response ->
+                if (response != null) {
+                    makeToast("예약 거절되었습니다.")
+                    reorderToActivity<RealTimeReservationActivity>()
+                }
+            })
         }
     }
 
@@ -148,14 +162,14 @@ class ReservationInfoActivity : AppCompatActivity() {
                     "승인",
                     "취소",
                     this@ReservationInfoActivity::approveReservation,
-                    "${currentReservationInfo.date} ${currentReservationInfo.startTime} 예약을 승인하시나요?"
+                    "${currentReservationInfo.date.convertDate()} ${currentReservationInfo.startTime.getTimeInfo()} 예약을 승인하시나요?"
                 )
             }
         }
     }
 
     private fun approveReservation() {
-        reorderToActivity<RealTimeReservationActivity>()
+        viewModel.confirmReservation(currentReservationInfo.id)
     }
 
     private fun requestPermission() {

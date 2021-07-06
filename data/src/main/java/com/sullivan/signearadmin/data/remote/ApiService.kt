@@ -1,10 +1,7 @@
 package com.sullivan.signearadmin.data.remote
 
 import com.sullivan.signearadmin.data.model.*
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -40,4 +37,16 @@ interface ApiService {
 
     @GET("/reservation/sign/myList")
     suspend fun getScheduleList(@Query("sign_id") id: Int): List<ReservationData>
+
+    @POST("/reservation/sign/confirm/{reservation_id}")
+    suspend fun confirmReservation(
+        @Path("reservation_id") reservationId: Int,
+        @Query("sign_id") id: Int
+    ): ReservationData
+
+    @POST("/reservation/sign/reject/{reservation_id}")
+    suspend fun rejectReservation(
+        @Path("reservation_id") reservationId: Int,
+        @Body info: HashMap<String, Any>
+    ): ReservationData
 }

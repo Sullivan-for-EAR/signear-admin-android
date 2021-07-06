@@ -32,6 +32,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 //        binding = null
 //    }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getReservationList()
+    }
+
     override fun setupView() {
         with(binding) {
 
@@ -42,15 +48,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
                 setHasFixedSize(true)
                 adapter = reservationDelegateAdapter
             }
-
-//            tvTitle.setOnClickListener {
-//                findNavController().navigate(R.id.action_global_reservationInfoFragment)
-//            }
         }
     }
 
     private fun observeViewModel() {
         with(viewModel) {
+//            getReservationList()
             myReservationList.observe(viewLifecycleOwner, { myReservationList ->
                 if (!myReservationList.isNullOrEmpty()) {
                     reservationDelegateAdapter.addAll(

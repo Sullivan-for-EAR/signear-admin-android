@@ -164,4 +164,40 @@ class SignearRepositoryImpl
                     }
                 }
         }
+
+    override suspend fun confirmReservation(reservationId: Int, id: Int): Flow<ReservationData> =
+        callbackFlow {
+            networkDataSource.confirmReservation(reservationId, id)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
+                    }
+                }
+        }
+
+    override suspend fun rejectReservation(
+        reservationId: Int,
+        id: Int,
+        rejectReason: String
+    ): Flow<ReservationData> =
+        callbackFlow {
+            networkDataSource.rejectReservation(reservationId, id, rejectReason)
+                .catch { exception -> Timber.e(exception) }
+                .collect {
+                    when (it) {
+                        is DataState.Success -> {
+                            trySend(it.data)
+                        }
+                        is DataState.Error -> {
+                            Timber.e("DataState.Error")
+                        }
+                    }
+                }
+        }
 }

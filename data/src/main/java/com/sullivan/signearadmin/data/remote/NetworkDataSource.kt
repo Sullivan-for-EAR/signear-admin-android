@@ -6,6 +6,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import retrofit2.http.Path
+import retrofit2.http.Query
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
@@ -93,6 +95,36 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
             trySend(
                 DataState.Success(
                     apiService.getScheduleList(id)
+                )
+            )
+            awaitClose { close() }
+        }
+
+    suspend fun confirmReservation(
+        reservationId: Int,
+        id: Int
+    ): Flow<DataState<ReservationData>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.confirmReservation(reservationId, id)
+                )
+            )
+            awaitClose { close() }
+        }
+
+    suspend fun rejectReservation(
+        reservationId: Int, id: Int, rejectReason: String
+    ): Flow<DataState<ReservationData>> =
+        callbackFlow {
+            trySend(
+                DataState.Success(
+                    apiService.rejectReservation(
+                        reservationId, hashMapOf(
+                            "sign_id" to id,
+                            "reject" to rejectReason
+                        )
+                    )
                 )
             )
             awaitClose { close() }

@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import com.sullivan.common.ui_common.ex.makeToast
 import com.sullivan.sigenearadmin.ui_reservation.databinding.DialogReservationDeclineBinding
 
 class ReservationDeclineDialog : DialogFragment() {
 
     private lateinit var binding: DialogReservationDeclineBinding
+    private val viewModel: ReservationSharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +35,16 @@ class ReservationDeclineDialog : DialogFragment() {
         with(binding) {
             btnCancel.setOnClickListener {
                 dialog?.dismiss()
+            }
+
+            btnDecline.setOnClickListener {
+                val rejectReason = etDeclineReason.text.toString()
+                if (rejectReason.isNotEmpty()) {
+                    viewModel.rejectReservation(rejectReason)
+                    dismiss()
+                } else {
+                    makeToast("거절 사유를 입력 부탁드립니다.")
+                }
             }
         }
     }
