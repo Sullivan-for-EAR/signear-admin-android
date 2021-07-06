@@ -1,12 +1,17 @@
 package com.sullivan.signearadmin.ui_login.ui.login
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.activityViewModels
@@ -19,6 +24,7 @@ import com.sullivan.signearadmin.ui_login.R
 import com.sullivan.signearadmin.ui_login.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import timber.log.Timber
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -46,11 +52,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupObserve()
         setTextWatcher()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.updateLoginState(LoginState.Init)
     }
 
     override fun setupView() {
@@ -81,16 +82,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 btnBack.setOnClickListener {
                     when (viewModel.checkCurrentState()) {
                         is LoginState.Init -> {
-                            findNavController().navigate(R.id.action_loginFragment_to_loginStartFragment)
+                            findNavController().navigate(R.id.action_loginFragment_pop)
                         }
-                        is LoginState.JoinMember -> {
-                            showLoginView()
-                        }
-                        is LoginState.FindAccount -> {
-                            showLoginView()
-                        }
-                        is LoginState.EmailValid -> {
-                            showLoginView()
+                        else -> {
+                            viewModel.updateLoginState(LoginState.Init)
                         }
                     }
                 }
@@ -128,13 +123,34 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             }
         }
+
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    when (viewModel.checkCurrentState()) {
+                        is LoginState.Init -> {
+                            findNavController().navigate(R.id.action_loginFragment_pop)
+                        }
+                        else -> {
+                            viewModel.updateLoginState(LoginState.Init)
+                        }
+                    }
+                }
+            })
     }
 
     private fun setupObserve() {
+        viewModel.updateLoginState(LoginState.Init)
+
         viewModel.apply {
             loginState.observe(viewLifecycleOwner, { loginState ->
                 run {
+                    Timber.d("state: $loginState")
                     when (loginState) {
+                        is LoginState.Init -> {
+                            showLoginView()
+                        }
                         is LoginState.EmailValid -> {
                             showPasswordInputView()
                         }
@@ -291,11 +307,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             etCenterInput.makeVisible()
             btnNext.makeGone()
             btnFindAccount.makeGone()
-            tvRule.makeVisible()
             btnJoin.makeVisible()
 
-            centerArray = resources.getStringArray(R.array.center_array)
+            val guideMsg =
+                "이어의 <a href='https://www.notion.so/Noticeme-a04e2dceff10453dbeb37926bee03e41'>개인정보 취급방침</a> 과 이용약관에 따라 개인정보를\n수집 및 사용하고, 제 3자에게 제공한다는 점에 동의합니다."
+            with(tvRule) {
+                makeVisible()
+                text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(guideMsg, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(guideMsg)
+                }
 
+                handleUrlClicks {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(it)
+                    startActivity(intent)
+                }
+            }
+
+            centerArray = resources.getStringArray(R.array.center_array)
             with(etCenterInput) {
                 setItems(centerArray.toList())
                 setOnItemSelectedListener { _, _, _, item ->
@@ -351,7 +382,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun showLoginView() {
-        viewModel.updateLoginState(LoginState.Init)
+//        viewModel.updateLoginState(LoginState.Init)
         binding.loginLayout.apply {
             loginLayout.makeVisible()
             etEmailInput.apply {
