@@ -33,7 +33,7 @@ constructor(
     private fun getPrevReservationList() {
         val id = sharedPreferenceManager.getUserId()
         viewModelScope.launch {
-            repository.getReservationList(id).collect { response ->
+            repository.getPrevReservationList(id).collect { response ->
                 if (response.isNotEmpty()) {
                     _myPrevReservationList.value = convertData(response)
                 } else {
