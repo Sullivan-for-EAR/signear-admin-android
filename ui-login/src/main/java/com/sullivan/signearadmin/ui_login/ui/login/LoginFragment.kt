@@ -14,6 +14,7 @@ import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -74,6 +75,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                                     hideKeyboard()
                                 }
                             }
+                            showProgressBar()
                             viewModel.login(email, password)
                         }
                     }
@@ -99,6 +101,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             clearFocus()
                             hideKeyboard()
                         }
+                        showProgressBar()
                         viewModel.createUser(email, password, center)
                     }
                 }
@@ -187,12 +190,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             })
 
             resultLogin.observe(viewLifecycleOwner, { response ->
+                hideProgressBar()
                 if (response.accessToken.isNotEmpty()) {
                     viewModel.updateLoginState(LoginState.Success)
                 }
             })
 
             resultJoin.observe(viewLifecycleOwner, { response ->
+                hideProgressBar()
                 if (response.accessToken.isNotEmpty()) {
                     viewModel.updateLoginState(LoginState.JoinSuccess)
                 } else {
@@ -446,4 +451,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         )
         btn.makeDisable()
     }
+
+    override fun getProgressbarView(): ContentLoadingProgressBar = binding.progressbar
 }

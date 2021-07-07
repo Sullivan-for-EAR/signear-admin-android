@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,13 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
 //        binding = null
 //    }
 
+    override fun onResume() {
+        super.onResume()
+
+        showProgressBar()
+        viewModel.getScheduleList()
+    }
+
     override fun setupView() {
         scheduleListAdapter = ScheduleListAdapter(mutableListOf())
         with(binding) {
@@ -53,6 +61,7 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
 
     private fun observeViewModel() {
         viewModel.scheduleList.observe(viewLifecycleOwner, { scheduleList ->
+            hideProgressBar()
             if (scheduleList.isNotEmpty()) {
                 with(binding) {
                     rvScheduleList.makeVisible()
@@ -68,4 +77,6 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding>() {
             }
         })
     }
+
+    override fun getProgressbarView(): ContentLoadingProgressBar = binding.progressbar
 }
