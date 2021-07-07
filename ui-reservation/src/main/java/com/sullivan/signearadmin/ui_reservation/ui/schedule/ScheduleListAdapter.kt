@@ -2,13 +2,17 @@ package com.sullivan.signearadmin.ui_reservation.ui.schedule
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sullivan.common.ui_common.ex.convertDate
 import com.sullivan.common.ui_common.ex.getTimeInfo
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemScheduleBinding
+import com.sullivan.signearadmin.data.model.ReservationData
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
+import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity.Companion.newIntent
 
 class ScheduleListAdapter(private val scheduleList: MutableList<NormalReservation>) :
@@ -44,6 +48,7 @@ class ScheduleListViewHolder(private val binding: ItemScheduleBinding) :
             tvEndTime.text = item.endTime.getTimeInfo()
             tvPlace.text = item.place
             tvRequest.text = item.purpose
+            convertStatus(item, ivState)
             if (!item.isContactless) {
                 ivTranslation.setBackgroundResource(R.drawable.sign_translation_icon)
             } else {
@@ -52,6 +57,23 @@ class ScheduleListViewHolder(private val binding: ItemScheduleBinding) :
             rootView.setOnClickListener {
                 it.context.startActivity(newIntent(it.context, "scheduleList", item.id))
             }
+        }
+    }
+
+    private fun convertStatus(item: NormalReservation, ivState: ImageView) {
+        when (item.status) {
+            3 -> ivState.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    ivState.context.resources,
+                    R.drawable.confirm_icon, null
+                )
+            )
+            4 -> ivState.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    ivState.context.resources,
+                    R.drawable.cancel_icon, null
+                )
+            )
         }
     }
 }

@@ -13,6 +13,7 @@ import com.sullivan.common.ui_common.ex.*
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ActivityReservationInfoBinding
 import com.sullivan.signearadmin.data.model.ReservationData
+import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

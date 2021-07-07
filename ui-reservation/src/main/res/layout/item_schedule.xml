@@ -35,6 +35,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/iv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_toStartOf="@id/btn_navigation"
+        app:layout_constraintStart_toEndOf="@+id/iv_translation"
+        app:layout_constraintTop_toTopOf="@+id/iv_translation"
+        tools:background="@drawable/not_read_icon" />
+
+    <ImageView
         android:id="@+id/iv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
