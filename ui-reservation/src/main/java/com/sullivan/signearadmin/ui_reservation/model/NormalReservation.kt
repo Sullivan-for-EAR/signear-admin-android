@@ -1,7 +1,9 @@
 package com.sullivan.signearadmin.ui_reservation.model
 
+import androidx.annotation.Keep
 import com.sullivan.signearadmin.ui_reservation.state.ReservationState
 
+@Keep
 data class NormalReservation(
     val id: Int = 0,
     val date: String,

@@ -1,7 +1,9 @@
 package com.sullivan.signearadmin.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class ReservationData(
     @SerializedName("rsID")
     val id: Int,
@@ -25,6 +27,7 @@ data class ReservationData(
     val customerUser: CustomerInfo,
 )
 
+@Keep
 data class CustomerInfo(
     @SerializedName("customerID")
     val id: Int,
