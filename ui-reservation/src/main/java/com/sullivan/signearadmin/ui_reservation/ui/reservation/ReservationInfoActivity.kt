@@ -96,6 +96,7 @@ class ReservationInfoActivity : AppCompatActivity() {
                 ivPlace.makeVisible()
                 tvPlace.makeVisible()
                 tvReservationPlace.makeVisible()
+                border1.makeVisible()
             } else {
                 tvReservationTranslation.text =
                     getString(R.string.fragment_reservation_tv_online_translation_title)
@@ -104,6 +105,7 @@ class ReservationInfoActivity : AppCompatActivity() {
                 ivPlace.makeGone()
                 tvPlace.makeGone()
                 tvReservationPlace.makeGone()
+                border1.makeGone()
             }
 
             tvReservationPurpose.text = currentReservationInfo.request

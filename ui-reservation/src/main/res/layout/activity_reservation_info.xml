@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:overScrollMode="never"
-    tools:context="com.sullivan.signear.ui_reservation.ui.reservation.ReservationInfoActivity">
+    tools:context="com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -69,10 +69,11 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
             android:textColor="@color/black"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="@+id/guideline1"
-            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:text="00월 00일 월요일" />
 
         <TextView
