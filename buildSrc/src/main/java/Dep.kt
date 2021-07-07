@@ -169,7 +169,7 @@ object Dep {
     }
 
     object Tool {
-        private const val desugarJdkVersion = "1.1.1"
+        private const val desugarJdkVersion = "1.1.5"
         const val desugarJdk = "com.android.tools:desugar_jdk_libs:$desugarJdkVersion"
     }
 
