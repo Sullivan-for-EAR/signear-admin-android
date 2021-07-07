@@ -26,8 +26,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
 
     private val viewModel: MyPageViewModel by viewModels()
 
-    private lateinit var itemArray: Array<String>
-    private lateinit var itemList: List<MyPageItem>
+    private val itemList by lazy {resources.getStringArray(R.array.profile_items).toList()}
     private lateinit var myPageListAdapter: MyPageListAdapter
 
     override fun onCreateView(
@@ -42,9 +41,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>() {
     }
 
     override fun setupView() {
-        itemArray = resources.getStringArray(R.array.profile_items)
-        itemList =
-            listOf(MyPageItem(itemArray[0]), MyPageItem(itemArray[1]))
 
         binding.apply {
 
