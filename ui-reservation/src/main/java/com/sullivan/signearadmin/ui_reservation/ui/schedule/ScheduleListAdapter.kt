@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.sullivan.common.ui_common.ex.convertDate
+import com.sullivan.common.ui_common.ex.getTimeInfo
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemScheduleBinding
 import com.sullivan.signearadmin.ui_reservation.model.NormalReservation
@@ -37,10 +39,11 @@ class ScheduleListViewHolder(private val binding: ItemScheduleBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: NormalReservation) {
         binding.apply {
-            tvDate.text = item.date
-            tvStartTime.text = item.startTime
-            tvEndTime.text = item.endTime
+            tvDate.text = item.date.convertDate()
+            tvStartTime.text = item.startTime.getTimeInfo()
+            tvEndTime.text = item.endTime.getTimeInfo()
             tvPlace.text = item.place
+            tvRequest.text = item.purpose
             if (!item.isContactless) {
                 ivTranslation.setBackgroundResource(R.drawable.sign_translation_icon)
             } else {
