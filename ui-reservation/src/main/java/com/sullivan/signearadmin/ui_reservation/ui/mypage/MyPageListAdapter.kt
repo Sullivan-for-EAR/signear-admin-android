@@ -14,6 +14,7 @@ import com.sullivan.common.ui_common.navigator.LoginNavigator
 import com.sullivan.sigenearadmin.ui_reservation.BuildConfig
 import com.sullivan.sigenearadmin.ui_reservation.R
 import com.sullivan.sigenearadmin.ui_reservation.databinding.ItemMypageBinding
+import kotlinx.coroutines.*
 
 class MyPageListAdapter(
     private val itemList: List<String>,
@@ -44,7 +45,13 @@ class MyPageListAdapter(
                 }
 
                 if (item == itemList[0]) {
-                    ivBubble.makeVisible()
+                    CoroutineScope(
+                        Job() + Dispatchers.Main
+                    ).launch {
+                        ivBubble.makeVisible()
+                        delay(3_000)
+                        ivBubble.makeGone()
+                    }
                 } else {
                     ivBubble.makeGone()
                 }
