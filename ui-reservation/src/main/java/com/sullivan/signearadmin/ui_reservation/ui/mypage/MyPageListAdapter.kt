@@ -33,13 +33,11 @@ class MyPageListAdapter(
                 tvTitle.text = item
                 rlMypage.setOnClickListener {
                     when (item) {
-//                        itemList[0].title -> it.findNavController()
-//                            .navigate(R.id.action_myPageFragment_to_previousReservationFragment)
-                        itemList[1] -> {
-                            showDialog(it.context)
-                        }
                         itemList[0] -> {
                             sendEmail(it.context)
+                        }
+                        itemList[3] -> {
+                            showDialog(it.context)
                         }
                     }
                 }
