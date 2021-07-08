@@ -334,7 +334,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             centerArray = resources.getStringArray(R.array.center_array)
             with(etCenterInput) {
                 setItems(centerArray.toList())
-                setOnItemSelectedListener { _, _, _, item ->
+                setOnItemSelectedListener { _, _, _, _ ->
+                }
+                setOnClickListener {
+                    etPasswordInput.clearFocus()
+                    hideKeyboard()
                 }
             }
         }
