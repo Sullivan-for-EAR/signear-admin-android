@@ -24,6 +24,8 @@ class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var reservationNavigator: ReservationNavigator
 
+    lateinit var test: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkAccessToken()

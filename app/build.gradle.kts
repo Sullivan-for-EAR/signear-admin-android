@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("io.sentry.android.gradle")
 }
 
 android {
@@ -95,6 +96,7 @@ dependencies {
     implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
     
     implementation(Dep.timber)
+    implementation(Dep.sentry)
 }
 
 kapt {
@@ -105,4 +107,8 @@ kapt {
         arg("dagger.fastInit", "enabled")
         arg("dagger.experimentalDaggerErrorMessages", "enabled")
     }
+}
+
+sentry {
+    autoUpload.set(true)
 }
