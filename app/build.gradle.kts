@@ -25,6 +25,7 @@ android {
     buildTypes {
         getByName(BuildType.DEBUG) {
             applicationIdSuffix = ".debug"
+            manifestPlaceholders(mapOf("environment" to "staging"))
         }
 
         getByName(BuildType.RELEASE) {
@@ -32,6 +33,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"))
             proguardFiles(file("proguard-rules.pro"))
             debuggable(true)
+            manifestPlaceholders(mapOf("environment" to "release"))
         }
     }
 
@@ -110,5 +112,5 @@ kapt {
 }
 
 sentry {
-    autoUpload.set(true)
+    autoUpload.set(false)
 }
