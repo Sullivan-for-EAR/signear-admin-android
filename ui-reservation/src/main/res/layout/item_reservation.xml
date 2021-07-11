@@ -99,15 +99,20 @@
 
             <TextView
                 android:id="@+id/tv_place"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="18dp"
-                android:text="@string/tv_place_title"
+                android:layout_marginEnd="32dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/iv_place"
-                app:layout_constraintTop_toBottomOf="@+id/border1" />
+                app:layout_constraintTop_toBottomOf="@+id/border1"
+                tools:text="수어통역장소수어통역장소수어통역장소수어통역장소통역장소" />
 
             <ImageView
                 android:id="@+id/iv_purpose"

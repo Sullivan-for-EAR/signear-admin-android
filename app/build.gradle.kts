@@ -33,7 +33,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"))
             proguardFiles(file("proguard-rules.pro"))
             debuggable(true)
-            manifestPlaceholders(mapOf("environment" to "release"))
+            manifestPlaceholders(mapOf("environment" to "production"))
         }
     }
 
