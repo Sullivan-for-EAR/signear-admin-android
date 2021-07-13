@@ -64,9 +64,9 @@ constructor(
         }
     }
 
-    fun createUser(email: String, password: String, phone: String) {
+    fun createUser(email: String, password: String, center: String) {
         viewModelScope.launch {
-            repository.createUser(email, password, phone).collect { response ->
+            repository.createUser(email, password, center).collect { response ->
                 response.let {
                     with(sharedPreferenceManager) {
                         setAccessToken(response.accessToken)
