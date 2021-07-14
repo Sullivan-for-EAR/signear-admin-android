@@ -32,7 +32,6 @@ android {
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
             proguardFiles(getDefaultProguardFile("proguard-android.txt"))
             proguardFiles(file("proguard-rules.pro"))
-            debuggable(true)
             manifestPlaceholders(mapOf("environment" to "production"))
         }
     }
