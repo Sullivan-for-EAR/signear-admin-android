@@ -206,6 +206,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             })
 
             errorMsg.observe(viewLifecycleOwner, { msg ->
+                hideProgressBar()
                 makeToast(msg)
             })
         }
