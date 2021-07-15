@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("io.sentry.android.gradle")
 }
 
 android {
@@ -23,14 +24,15 @@ android {
 
     buildTypes {
         getByName(BuildType.DEBUG) {
-            signingConfig = signingConfigs.getByName("debug")
             applicationIdSuffix = ".debug"
+            manifestPlaceholders(mapOf("environment" to "staging"))
         }
 
         getByName(BuildType.RELEASE) {
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
             proguardFiles(getDefaultProguardFile("proguard-android.txt"))
             proguardFiles(file("proguard-rules.pro"))
+            manifestPlaceholders(mapOf("environment" to "production"))
         }
     }
 
@@ -91,8 +93,11 @@ dependencies {
 
     implementation(Dep.OkHttp.core)
     implementation(Dep.Retrofit.retrofit)
+    implementation("com.facebook.stetho:stetho:1.5.1")
+    implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
     
     implementation(Dep.timber)
+    implementation(Dep.sentry)
 }
 
 kapt {
@@ -103,4 +108,8 @@ kapt {
         arg("dagger.fastInit", "enabled")
         arg("dagger.experimentalDaggerErrorMessages", "enabled")
     }
+}
+
+sentry {
+    autoUpload.set(false)
 }

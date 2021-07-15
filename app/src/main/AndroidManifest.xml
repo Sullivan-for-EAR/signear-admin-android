@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.sullivan.signear">
+    package="com.sullivan.signearadmin">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/laucher_icon"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/signear_admin_app_name"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Signearandroid">
+        android:theme="@style/Theme.Signearandroid"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
@@ -30,9 +32,28 @@
 
         <activity
             android:name=".ui_reservation.ui.ReservationActivity"
-            android:theme="@style/ReservationTheme"
             android:screenOrientation="portrait"
+            android:theme="@style/ReservationTheme"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.RealTimeReservationActivity"
+            android:label="RealTimeReservationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/ReservationTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.sullivan.signearadmin.ui_reservation.ui.reservation.ReservationInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ReservationTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.sullivan.signearadmin.ui_reservation.ui.schedule.PrevReservationListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ReservationTheme" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -40,8 +61,21 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.sullivan.sigenear.common.initializer.TimberInitializer"
+                android:name="com.sullivan.common.ui_common.initializer.TimberInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="https://16f501c43f724dbea96552ff4fe23a30@o914902.ingest.sentry.io/5856879" />
+        <meta-data
+            android:name="io.sentry.debug"
+            android:value="true" />
+        <meta-data
+            android:name="io.sentry.session-tracking.enable"
+            android:value="true" />
+        <meta-data
+            android:name="io.sentry.environment"
+            android:value="${environment}" />
     </application>
 </manifest>

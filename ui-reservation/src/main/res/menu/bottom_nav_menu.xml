@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/reservation_icon_selector"
+        android:title="실시간 예약" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/management_icon_selector"
+        android:title="예약 관리" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/profile_icon_selector"
+        android:title="프로필" />
+</menu>

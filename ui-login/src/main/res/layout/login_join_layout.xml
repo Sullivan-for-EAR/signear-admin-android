@@ -23,6 +23,7 @@
         android:hint="@string/email_input_guide_msg"
         android:inputType="textEmailAddress"
         android:textColor="@color/black"
+        android:textColorHint="@color/border_color"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_human"
@@ -48,6 +49,7 @@
         android:hint="@string/password_input_guide_msg"
         android:inputType="textPassword"
         android:textColor="@color/black"
+        android:textColorHint="@color/border_color"
         android:textSize="24sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,30 +57,60 @@
         app:layout_constraintTop_toBottomOf="@+id/et_email_input" />
 
     <ImageView
-        android:id="@+id/iv_phone"
+        android:id="@+id/iv_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/phone_icon"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/center_icon"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_password" />
 
-    <EditText
-        android:id="@+id/et_phone_input"
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_center_input"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="12dp"-->
+    <!--        android:textColor="@color/border_color"-->
+    <!--        android:textSize="24sp"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/iv_password"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/et_password_input" />-->
+
+    <com.jaredrummler.materialspinner.MaterialSpinner
+        android:id="@+id/et_center_input"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:hint="전화번호를 입력하세요"
-        android:inputType="phone"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_password"
-        app:layout_constraintTop_toBottomOf="@+id/et_password_input" />
+        app:layout_constraintTop_toBottomOf="@+id/et_password_input"
+        app:ms_hide_arrow="false"
+        app:ms_hint="소속 지역을 선택하세요"
+        app:ms_hint_color="@color/border_color" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/et_center_input"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="12dp"-->
+    <!--        android:clickable="true"-->
+    <!--        android:focusable="true"-->
+    <!--        android:hint="소속 지역을 선택하세요"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textColorHint="@color/border_color"-->
+    <!--        android:textSize="24sp"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/iv_password"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/et_password_input" />-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_next"
@@ -94,7 +126,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_find_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone_input" />
+        app:layout_constraintTop_toBottomOf="@+id/et_center_input" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_find_account"
@@ -105,6 +137,7 @@
         android:text="계정찾기"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:visibility="visible"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,14 +149,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="이어의 개인정보 취급방침과 이용약관에 따라 개인정보를\n수집 및 사용하고, 제 3자에게 제공한다는 점에 동의합니다."
         android:textColor="@color/black"
         android:textSize="14sp"
         android:visibility="gone"
+        android:autoLink="web"
+        android:linksClickable="true"
         app:layout_constraintBottom_toTopOf="@+id/btn_join"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone_input" />
+        app:layout_constraintTop_toBottomOf="@+id/et_center_input" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_join"
@@ -143,4 +177,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_rule" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

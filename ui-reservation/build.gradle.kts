@@ -18,6 +18,13 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -25,16 +32,21 @@ dependencies {
     implementation(project(":common:ui-common"))
     implementation(project(":ui-login"))
     implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)
     implementation(Dep.Kotlin.coroutines.android)
     implementation(Dep.AndroidX.legacySupport)
 
+    implementation(Dep.AndroidX.appcompat)
+    implementation(Dep.AndroidX.coreKtx)
     implementation(Dep.AndroidX.activity.ktx)
     implementation(Dep.AndroidX.fragment.ktx)
+    implementation(Dep.AndroidX.constraintLayout)
     implementation(Dep.AndroidX.lifecycle.viewModelKtx)
     implementation(Dep.AndroidX.lifecycle.liveDataKtx)
+    implementation(Dep.AndroidX.lifecycle.commonJava8)
     implementation(Dep.AndroidX.UI.material)
     implementation(Dep.AndroidX.UI.recyclerview)
 
@@ -47,6 +59,8 @@ dependencies {
     implementation(Dep.timber)
 
     implementation(Dep.CustomLib.spinner)
+    implementation(Dep.CustomLib.adapterdelegates)
+    implementation(Dep.CustomLib.adapterdelegatesViewbinding)
 
     coreLibraryDesugaring(Dep.Tool.desugarJdk)
 }

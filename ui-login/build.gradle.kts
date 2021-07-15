@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 
 listOf(
@@ -22,6 +23,7 @@ dependencies {
 
     implementation(project(":common:ui-common"))
     implementation(project(":domain"))
+    implementation(project(":data"))
 
     implementation(Dep.Kotlin.stdlibJvm)
     implementation(Dep.Kotlin.coroutines.core)
@@ -40,6 +42,8 @@ dependencies {
     implementation(Dep.AndroidX.Navigation.uiKtx)
 
     implementation(Dep.timber)
+
+    implementation(Dep.CustomLib.spinner)
 
     coreLibraryDesugaring (Dep.Tool.desugarJdk)
 }

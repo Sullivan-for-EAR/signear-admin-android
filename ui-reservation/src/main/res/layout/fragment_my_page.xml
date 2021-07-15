@@ -2,63 +2,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.sullivan.signear.ui_reservation.ui.mypage.MyPageFragment">
-
-    <ImageButton
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:background="#00000000"
-        android:foreground="?attr/selectableItemBackground"
-        android:src="@drawable/btn_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="홍길동"
+        android:layout_marginTop="48dp"
+        tools:text="홍길동"
         android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_user_phone"
+        android:id="@+id/tv_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="010-1234-5678"
+        tools:text="마포수어통역센터"
         android:textColor="@color/user_phone_text_color"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/tv_user_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
-    <ImageButton
-        android:id="@+id/btn_emergency"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="32dp"
-        android:background="#00000000"
-        android:foreground="?attr/selectableItemBackground"
-        android:src="@drawable/btn_emergency"
-        app:layout_constraintBottom_toTopOf="@+id/rv_mypage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_phone" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mypage"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
@@ -66,6 +39,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_emergency"
+        app:layout_constraintTop_toBottomOf="@+id/tv_center"
         tools:listitem="@layout/item_mypage" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressbar"
+        style="?android:progressBarStyleLarge"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
