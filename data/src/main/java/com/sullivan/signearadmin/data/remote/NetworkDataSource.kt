@@ -3,6 +3,7 @@ package com.sullivan.signearadmin.data.remote
 import com.sullivan.common.core.DataState
 import com.sullivan.signearadmin.data.model.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -31,13 +32,13 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                     )
                 )
             )
-            awaitClose { close() }
+            awaitClose { cancel() }
         }
 
     suspend fun checkAccessToken(): Flow<DataState<ResponseCheckAccessToken>> =
         callbackFlow {
             trySend(DataState.Success(apiService.checkAccessToken()))
-            awaitClose { close() }
+            awaitClose { cancel()}
         }
 
     suspend fun createUser(
@@ -57,7 +58,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                     )
                 )
             )
-            awaitClose { close() }
+            awaitClose { cancel() }
         }
 
     suspend fun getUserInfo(id: Int): Flow<DataState<UserProfile>> =
@@ -77,7 +78,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                     apiService.getReservationList(id)
                 )
             )
-            awaitClose { close() }
+            awaitClose { cancel() }
         }
 
     suspend fun getReservationDetailInfo(id: Int): Flow<DataState<ReservationData>> =
@@ -87,7 +88,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                     apiService.getReservationDetailInfo(id)
                 )
             )
-            awaitClose { close() }
+            awaitClose { cancel() }
         }
 
     suspend fun getScheduleList(id: Int): Flow<DataState<List<ReservationData>>> =
@@ -97,7 +98,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                     apiService.getScheduleList(id)
                 )
             )
-            awaitClose { close() }
+            awaitClose { cancel() }
         }
 
     suspend fun confirmReservation(
@@ -110,7 +111,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                     apiService.confirmReservation(reservationId, id)
                 )
             )
-            awaitClose { close() }
+            awaitClose { cancel() }
         }
 
     suspend fun rejectReservation(
@@ -127,7 +128,7 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                     )
                 )
             )
-            awaitClose { close() }
+            awaitClose { cancel() }
         }
 
     suspend fun getPrevReservationList(id: Int): Flow<DataState<List<ReservationData>>> =
@@ -137,6 +138,6 @@ class NetworkDataSource @Inject constructor(private val apiService: ApiService) 
                     apiService.getPrevReservationList(id)
                 )
             )
-            awaitClose { close() }
+            awaitClose { cancel() }
         }
 }

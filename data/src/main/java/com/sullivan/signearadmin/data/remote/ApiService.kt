@@ -6,7 +6,7 @@ import retrofit2.http.*
 interface ApiService {
 
     companion object {
-        const val BASE_URL = "https://49.50.166.181:8088/"
+        const val BASE_URL = "https://api.signear.com:8088/"
     }
 
     @GET("sign/check")
